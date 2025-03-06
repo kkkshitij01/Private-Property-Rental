@@ -1,19 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Property Rental</title>
-  </head>
-  <body>
-    <h1>All Listing</h1>
-    <form action="/listings/new" method="get">
-      <button>Create New Listing</button>
-    </form>
-    <% let i = 1; %> <%for(let data of listingData){%>
-    <ul>
-      <li><a href="/listings/<%=data._id%>"> <%=data.title%></a></li>
-    </ul>
-    <%}%>
-  </body>
-</html>
+<% layout("/layouts/boilerplate")%>
+<body>
+  <h1>All Listing</h1>
+
+  <% let i = 1; %> <%for(let data of listingData){%>
+  <ul>
+    <li><a href="/listings/<%=data._id%>"> <%=data.title%></a></li>
+  </ul>
+  <%}%>
+</body>

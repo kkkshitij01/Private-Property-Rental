@@ -3,12 +3,14 @@ const mongoose = require("mongoose");
 const express = require("express");
 const app = express();
 const path = require("path");
+const ejsMate = require("ejs-mate");
+
+app.engine("ejs", ejsMate);
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "/public")));
 app.use(express.urlencoded({ extended: true }));
 const methodOverride = require("method-override");
-
 app.use(methodOverride("_method"));
 
 //Importing mongoDB models
@@ -29,10 +31,6 @@ main()
 
 app.listen(8080, () => {
   console.log("Listening to port 8080");
-});
-
-app.get("/", (req, res) => {
-  res.send("working");
 });
 
 // Index route

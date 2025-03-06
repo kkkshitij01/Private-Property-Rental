@@ -1,0 +1,12 @@
+.navbar{
+    height: 5rem;
+    background-color: white;
+}
+.fa-solid{
+    color: orangered;
+    font-size: 2rem;
+}
+
+.nav-link{
+    color: #222222 !important;
+}
