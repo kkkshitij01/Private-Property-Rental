@@ -7,6 +7,9 @@ app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: true }));
+const methodOverride = require("method-override");
+
+app.use(methodOverride("_method"));
 
 //Importing mongoDB models
 const Listing = require("../MajorProject/models/listing");
@@ -32,9 +35,49 @@ app.get("/", (req, res) => {
   res.send("working");
 });
 
-//Listing route || Index route
+// Index route
 
-app.get("/listing", async (req, res) => {
+app.get("/listings", async (req, res) => {
   const listingData = await Listing.find({});
-  res.render("listing/listing", { listingData });
+  res.render("listing/index", { listingData });
+});
+
+//NEw listing Route
+app.get("/listings/new", (req, res) => {
+  res.render("listing/new.ejs");
+});
+
+//Post request for adding new listing
+app.post("/listings", async (req, res) => {
+  Listing.insertOne(req.body.listing);
+  res.redirect("/listings");
+});
+
+//show route
+app.get("/listings/:id", async (req, res) => {
+  let { id } = req.params;
+  let data = await Listing.findById(id);
+  res.render("listing/show.ejs", { data });
+});
+
+//Edit route
+app.get("/listings/:id/edit", async (req, res) => {
+  let { id } = req.params;
+  let listing = await Listing.findById(id);
+  res.render("listing/edit.ejs", { listing });
+});
+
+//update route
+app.put("/listings/:id", async (req, res) => {
+  let { id } = req.params;
+  await Listing.findByIdAndUpdate(id, { ...req.body.listing });
+  res.redirect(`/listings/${id}`);
+});
+
+//Delete route
+app.delete("/listings/:id", async (req, res) => {
+  let { id } = req.params;
+  let listing = await Listing.findByIdAndDelete(id);
+  console.log(listing);
+  res.redirect("/listings");
 });

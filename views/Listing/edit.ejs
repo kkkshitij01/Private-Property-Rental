@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Property Rental</title>
+  </head>
+  <body>
+    <h1>Create a new Listing</h1>
+    <form action="/listings/<%=listing._id%>?_method=PUT" method="post">
+      <input type="text" name="listing[title]" value="<%=listing.title%>" />
+      <br /><br />
+      <textarea name="listing[description]" rows="5" cols="40" val>
+ <%=listing.description%></textarea
+      >
+      <br /><br />
+      <input
+        style="width: 85%"
+        type="text"
+        value="<%=listing.image%>"
+        name="listing[image]"
+        placeholder="Enter Image URL/Link"
+      />
+      <br /><br />
+      <input type="number" name="listing[price]" value="<%=listing.price%>" />
+      <br /><br />
+      <input
+        value="<%=listing.location%>"
+        type="text"
+        name="listing[location]"
+      />
+      <br /><br />
+      <input type="text" name="listing[country]" value="<%=listing.country%>" />
+      <br /><br />
+      <button>Submit</button>
+    </form>
+  </body>
+</html>
