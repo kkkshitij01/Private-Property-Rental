@@ -32,17 +32,16 @@ main()
 app.listen(8080, () => {
   console.log("Listening to port 8080");
 });
+//NEw listing Route
+app.get("/listings/new", (req, res) => {
+  res.render("listing/new.ejs");
+});
 
 // Index route
 
 app.get("/listings", async (req, res) => {
   const listingData = await Listing.find({});
   res.render("listing/index", { listingData });
-});
-
-//NEw listing Route
-app.get("/listings/new", (req, res) => {
-  res.render("listing/new.ejs");
 });
 
 //Post request for adding new listing

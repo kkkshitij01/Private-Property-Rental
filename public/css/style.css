@@ -88,3 +88,22 @@ body{
     color: white;
     border: none !important;
 }
+
+.edit-btn{
+    background-color: orangered !important;
+    color: white !important;
+    border: none !important;
+}
+
+/* SHOW PAGE STYLING */
+.show-img{
+    height: 30vh;
+}
+.btns{
+    display: flex;
+
+}
+.show-card{
+    padding-left: 0;
+    padding-right: 0;
+}
