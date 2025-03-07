@@ -1,3 +1,11 @@
+body{
+    display: flex;
+    flex-direction: column ;
+    min-height: 100vh;
+}
+.container{
+    flex: 1;
+}
 /* NAV STYLING */
 .navbar{
     height: 5rem;
@@ -72,4 +80,11 @@
 .card-img-overlay:hover{
     opacity: 0.25;
     background-color: white;
+}
+
+/* BUTTON STYLING */
+.add-btn{
+    background-color: orangered !important;
+    color: white;
+    border: none !important;
 }
