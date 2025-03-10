@@ -6,6 +6,7 @@ const path = require("path");
 const ejsMate = require("ejs-mate"); // used for layouts
 const wrapAsync = require("./utils/wrapAsync.js");
 const ExpressError = require("./utils/ExpressError.js");
+const { listingSchema } = require("./schema.js");
 
 app.engine("ejs", ejsMate);
 app.set("view engine", "ejs");
@@ -31,6 +32,15 @@ main()
     console.log(err);
   });
 
+const validateListing = (req, res, next) => {
+  let { error } = listingSchema.validate(req.body);
+  if (error) {
+    let errMsg = error.details.map((el) => el.message).join(",");
+    throw new ExpressError(400, errMsg);
+  } else {
+    next();
+  }
+};
 //NEw listing Route
 app.get("/listings/new", (req, res) => {
   res.render("listing/new.ejs");
@@ -39,10 +49,8 @@ app.get("/listings/new", (req, res) => {
 //Post request for adding new listing
 app.post(
   "/listings",
+  validateListing,
   wrapAsync(async (req, res, next) => {
-    if (!req.body.listing) {
-      throw new ExpressError(400, "Send valid data for listing");
-    }
     await Listing.insertOne(req.body.listing);
     res.redirect("/listings");
   })
@@ -81,10 +89,8 @@ app.get(
 //update route
 app.put(
   "/listings/:id",
+  validateListing,
   wrapAsync(async (req, res) => {
-    if (!req.body.listing) {
-      throw new ExpressError(400, "Send valid data for listing");
-    }
     let { id } = req.params;
     await Listing.findByIdAndUpdate(id, { ...req.body.listing });
     res.redirect(`/listings/${id}`);
