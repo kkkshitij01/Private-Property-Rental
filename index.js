@@ -8,17 +8,18 @@ const wrapAsync = require("./utils/wrapAsync.js");
 const ExpressError = require("./utils/ExpressError.js");
 const { listingSchema, reviewSchema } = require("./schema.js");
 const Review = require("./models/review.js");
+const methodOverride = require("method-override");
+const Listing = require("../Private-Property-Rental/models/listing.js");
+const listings = require("./routes/listings.js");
 
 app.engine("ejs", ejsMate);
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 app.use(express.static(path.join(__dirname, "/public")));
 app.use(express.urlencoded({ extended: true }));
-const methodOverride = require("method-override");
 app.use(methodOverride("_method"));
 
 //Importing mongoDB models
-const Listing = require("../Private-Property-Rental/models/listing.js");
 
 //Connecting to data base
 const MONGO_URL = "mongodb://127.0.0.1:27017/property-rental";
@@ -33,15 +34,6 @@ main()
     console.log(err);
   });
 
-const validateListing = (req, res, next) => {
-  let { error } = listingSchema.validate(req.body);
-  if (error) {
-    let errMsg = error.details.map((el) => el.message).join(",");
-    throw new ExpressError(400, errMsg);
-  } else {
-    next();
-  }
-};
 const validateReview = (req, res, next) => {
   let { error } = reviewSchema.validate(req.body);
   if (error) {
@@ -51,72 +43,7 @@ const validateReview = (req, res, next) => {
     next();
   }
 };
-//NEw listing Route
-app.get("/listings/new", (req, res) => {
-  res.render("listing/new.ejs");
-});
-
-//Post request for adding new listing
-app.post(
-  "/listings",
-  validateListing,
-  wrapAsync(async (req, res, next) => {
-    await Listing.insertOne(req.body.listing);
-    res.redirect("/listings");
-  })
-);
-
-// Index route
-
-app.get(
-  "/listings",
-  wrapAsync(async (req, res) => {
-    const listingData = await Listing.find({});
-    res.render("listing/index", { listingData });
-  })
-);
-
-//show route
-app.get(
-  "/listings/:id",
-  wrapAsync(async (req, res) => {
-    let { id } = req.params;
-    let data = await Listing.findById(id).populate("reviews");
-    res.render("listing/show.ejs", { data });
-  })
-);
-
-//Edit route
-app.get(
-  "/listings/:id/edit",
-  wrapAsync(async (req, res) => {
-    let { id } = req.params;
-    let listing = await Listing.findById(id);
-    res.render("listing/edit.ejs", { listing });
-  })
-);
-
-//update route
-app.put(
-  "/listings/:id",
-  validateListing,
-  wrapAsync(async (req, res) => {
-    let { id } = req.params;
-    await Listing.findByIdAndUpdate(id, { ...req.body.listing });
-    res.redirect(`/listings/${id}`);
-  })
-);
-
-//Delete route
-app.delete(
-  "/listings/:id",
-  wrapAsync(async (req, res) => {
-    let { id } = req.params;
-    let listing = await Listing.findByIdAndDelete(id);
-    console.log(listing);
-    res.redirect("/listings");
-  })
-);
+app.use("/listings", listings);
 
 //REVIEWS
 // adding a new review
