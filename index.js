@@ -18,7 +18,7 @@ const methodOverride = require("method-override");
 app.use(methodOverride("_method"));
 
 //Importing mongoDB models
-const Listing = require("../MajorProject/models/listing");
+const Listing = require("../Private-Property-Rental/models/listing.js");
 
 //Connecting to data base
 const MONGO_URL = "mongodb://127.0.0.1:27017/property-rental";
