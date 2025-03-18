@@ -6,14 +6,17 @@ const path = require("path");
 const ejsMate = require("ejs-mate"); // used for layouts
 const ExpressError = require("./utils/ExpressError.js");
 const methodOverride = require("method-override");
-const listings = require("./routes/listing.js");
-const reviews = require("./routes/review.js");
 const port = 8000;
 const session = require("express-session");
 const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
+
+const userRouter = require("./routes/user.js");
+const reviewRouter = require("./routes/review.js");
+const listingRouter = require("./routes/listing.js");
+const user = require("./models/user.js");
 
 const sessionOption = {
   secret: "mysupersecrectcode",
@@ -77,8 +80,9 @@ app.get("/demouser", async (req, res) => {
   res.send(regUser);
 });
 
-app.use("/listings", listings);
-app.use("/listings/:id/reviews", reviews);
+app.use("/listings", listingRouter);
+app.use("/listings/:id/reviews", reviewRouter);
+app.use("/", userRouter);
 
 //RESPONSE FOR UNDEFINED ROUTE CALL
 app.all("*", (req, res, next) => {
