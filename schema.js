@@ -1,4 +1,5 @@
 const Joi = require("joi");
+//Joi is used to add server side validation
 
 module.exports.listingSchema = Joi.object({
   listing: Joi.object({
