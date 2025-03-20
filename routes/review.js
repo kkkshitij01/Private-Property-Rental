@@ -22,7 +22,6 @@ const validateReview = (req, res, next) => {
 router.post(
   "/",
   validateReview,
-  isLoggedIn,
   wrapAsync(async (req, res) => {
     let listing = await Listing.findById(req.params.id);
     let newReview = new Review(req.body.review);
@@ -39,7 +38,6 @@ router.post(
 //DELETE REVIEW ROUTE
 router.delete(
   "/:reviewId",
-  isLoggedIn,
   wrapAsync(async (req, res) => {
     let { id, reviewId } = req.params;
     await Listing.findByIdAndUpdate(id, { $pull: { reviews: reviewId } });
