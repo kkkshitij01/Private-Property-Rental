@@ -52,7 +52,7 @@ main()
   });
 
 app.get("/", (req, res) => {
-  res.send("Home Page");
+  res.send("Home");
 });
 app.use(session(sessionOption));
 app.use(flash());

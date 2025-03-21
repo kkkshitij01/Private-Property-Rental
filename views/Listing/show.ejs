@@ -2,7 +2,7 @@
 <body>
   <div class="row mt-3">
     <div class="col-8 offset-3">
-      <h2><b> <%=data.title%></b></h2>
+      <p style="font-size: xx-large; font-weight: 500"><%=data.title%></p>
     </div>
     <div class="card col-6 offset-3 show-card listing-card">
       <img
@@ -67,12 +67,14 @@
       <button class="btn btn-outline-dark">Submit</button>
     </form>
     <hr />
-    <p><b> All Reviews </b></p>
+    <p><b> Reviews </b></p>
     <div class="row">
       <%for(review of data.reviews){ %>
       <div class="card col-5 mb-4 ms-3">
         <div class="card-body">
-          <h5 class="card-title">Ram</h5>
+          <h6 class="card-title">
+            <i>@<b><%=review.author.username%></b></i>
+          </h6>
           <p class="card-text"><%=review.comment%></p>
           <p class="card-text"><%=review.rating%> &#9734;</p>
         </div>
@@ -81,7 +83,10 @@
           class="mb-3"
           method="post"
         >
+          <% if (currUser && currUser._id.toString() ===
+          review.author._id.toString()) { %>
           <button class="btn btn-sm btn-dark">Delete</button>
+          <%}%>
         </form>
       </div>
       <%}%>
