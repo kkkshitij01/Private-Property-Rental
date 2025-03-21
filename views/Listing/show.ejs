@@ -21,6 +21,7 @@
       </div>
     </div>
   </div>
+  <% if (currUser && currUser._id.toString() === data.owner._id.toString()) { %>
   <div class="btns">
     <a href="/listings/<%=data._id%>/edit" class="btn edit-btn col-1 offset-3"
       >Edit</a
@@ -30,6 +31,7 @@
       <button class="btn btn-dark offset-5">Delete</button>
     </form>
   </div>
+  <%}%>
   <div class="col-8 offset-3">
     <hr />
     <h4>Leave A Review</h4>
@@ -40,7 +42,7 @@
       novalidate
     >
       <div class="mb-3 mt-3">
-        <label for="rating" class="form-lable">Rating</label>
+        <label for="rating" class="form-label">Rating</label>
         <input
           type="range"
           min="1"
@@ -51,7 +53,7 @@
         />
       </div>
       <div class="mb-3 mt-3">
-        <label for="comment" class="form-lable">Comment</label>
+        <label for="comment" class="form-label">Comment</label>
         <textarea
           required
           name="review[comment]"
