@@ -107,3 +107,108 @@ body{
     padding-left: 0;
     padding-right: 0;
 }
+
+.title{
+    font-size: 2.2rem;
+    color: #444;
+    font-weight: 600 !important;
+    margin-bottom: 10px;
+}
+
+.input-field{
+    max-width: 380px;
+    width: 100%;
+    height: 55px;
+    background-color: #cac9c9;
+    margin: 10px 0;
+    border-radius: 55px;
+    display: grid;
+    grid-template-columns: 15% 85%;
+    padding: 0 0.4rem;
+}
+
+.input-field i{
+    text-align: center;
+    line-height: 55px;
+    color: #181717;
+    font-size: 1.1rem;
+}
+
+.input-field input{
+    background: none;
+    outline: none;
+    border: none;
+    line-height: 1;
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: #333;
+}
+
+.input-field input::placeholder{
+    color: #495c81;
+    font-weight: 500;
+}
+
+.form-btn{
+    width: 150px;
+    height: 49px;
+    outline: none;
+    border: none;
+    border-radius: 49px;
+    background-color: #090c11;
+    color: #fff;
+    font-weight: 600;
+    text-transform: capitalize;
+    margin: 10px 0;
+    cursor: pointer;
+    transition: 0.5s;
+}
+
+.form-btn:hover{
+    background-color: #001236;
+}
+
+
+
+  
+.comment-btn {
+    scale: 0.6;
+    position: absolute;
+    font-family: inherit;
+    font-size: 18px;
+    background: #000;
+    color: white;
+    padding: 15px 24px 15px 24px;
+    width: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 30px;
+    overflow: hidden;
+    transition: all 0.2s;
+    cursor: pointer;
+  }
+  
+  .comment-btn span {
+    display: block;
+    margin-left: 0.3em;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .comment-btn svg {
+    display: block;
+    transform-origin: center center;
+    transition: transform 0.3s ease-in-out;
+  }
+  .comment-btn:hover svg {
+    transform: translateX(2.5em) rotate(45deg) scale(1.1);
+  }
+  
+  .comment-btn:hover span {
+    transform: translateX(9em);
+  }
+  
+  .comment-btn:active {
+    transform: scale(0.95);
+  }

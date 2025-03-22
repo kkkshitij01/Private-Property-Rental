@@ -1,38 +1,37 @@
 <% layout("/layouts/boilerplate")%>
 
 <div class="row mt-3">
-  <p class="col-6 offset-3 mb-4" style="font-size: xx-large; font-weight: 450">
-    Login on Property Rental
+  <p class="col-6 offset-4 title" style="font-size: xx-large; font-weight: 450">
+    Login
   </p>
-  <div class="col-6 offset-3 mt-2">
+  <div class="col-6 offset-4 mt-2">
     <form
       action="/login"
       method="POST"
       class="needs-validation mt-4"
       novalidate
     >
-      <div class="mb-3">
-        <label for="username" class="form-lable">Username</label>
+      <div class="mb-3 input-field">
+        <i class="fa-solid fa-user"></i>
         <input
           type="text"
           name="username"
           id="username"
-          class="form-control"
+          placeholder="Username"
           required
         />
-        <div class="valid-feedback">Looks Good!</div>
       </div>
-      <div class="mb-3">
-        <label for="password" class="form-lable">Password</label>
+      <div class="mb-3 input-field">
+        <i class="fa-solid fa-lock"></i>
         <input
+          placeholder="Password"
           type="password"
           name="password"
           id="password"
-          class="form-control"
           required
         />
       </div>
-      <button class="btn btn-success">Login</button>
+      <button class="form-btn">Login</button>
     </form>
   </div>
 </div>

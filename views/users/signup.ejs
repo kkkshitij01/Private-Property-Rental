@@ -1,51 +1,47 @@
 <% layout("/layouts/boilerplate")%>
 
 <div class="row mt-3">
-  <p class="col-6 offset-3 mb-4" style="font-size: xx-large; font-weight: 450">
-    Sign-up on Property Rental
-  </p>
-  <div class="col-6 offset-3 mt-2">
-    <form
-      action="/signup"
-      method="POST"
-      class="needs-validation mt-4"
-      novalidate
-    >
-      <div class="mb-3">
-        <label for="username" class="form-lable">Username</label>
+  <p class="col-6 offset-4 mb-4 title">Sign-up</p>
+  <div class="col-6 offset-4 mt-2">
+    <form action="/signup" method="POST" class="needs-validation" novalidate>
+      <div class="mb-3 input-field">
+        <i class="fa-solid fa-user"></i>
         <input
           type="text"
           name="username"
           id="username"
-          class="form-control"
+          placeholder="Username"
           required
         />
         <div class="valid-feedback">Looks Good!</div>
         <div class="invalid-feedback">Please enter a username</div>
       </div>
-      <div class="mb-3">
-        <label for="email" class="form-lable">Email</label>
+      <div class="mb-3 input-field">
+        <i
+          class="fa-solid fa-envelope fa-rotate-by"
+          style="--fa-rotate-angle: -10deg"
+        ></i>
         <input
           type="email"
           name="email"
           id="email"
-          class="form-control"
+          placeholder="Email"
           required
         />
         <div class="invalid-feedback">Please enter a email</div>
       </div>
-      <div class="mb-3">
-        <label for="password" class="form-lable">Password</label>
+      <div class="mb-3 input-field">
+        <i class="fa-solid fa-lock"></i>
         <input
           type="password"
           name="password"
+          placeholder="Password"
           id="password"
-          class="form-control"
           required
         />
         <div class="invalid-feedback">Please enter a password</div>
       </div>
-      <button class="btn btn-success">SignUp</button>
+      <button class="form-btn">SignUp</button>
     </form>
   </div>
 </div>
