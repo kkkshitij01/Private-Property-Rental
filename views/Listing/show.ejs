@@ -41,7 +41,7 @@
       class="needs-validation"
       novalidate
     >
-      <div class="mb-3 mt-3">
+      <!-- <div class="mb-3 mt-3">
         <label for="rating" class="form-label">Rating</label>
         <input
           type="range"
@@ -51,6 +51,55 @@
           name="review[rating]"
           class="form-range"
         />
+      </div> -->
+      <div class="mb-3 mt-3">
+        <label for="rating" class="form-label">Rating</label>
+        <fieldset class="starability-basic">
+          <input
+            type="radio"
+            id="no-rate"
+            class="input-no-rate"
+            name="review[rating]"
+            value="1"
+            checked
+            aria-label="No rating."
+          />
+          <input
+            type="radio"
+            id="first-rate1"
+            name="review[rating]"
+            value="1"
+          />
+          <label for="first-rate1" title="Terrible">1 star</label>
+          <input
+            type="radio"
+            id="first-rate2"
+            name="review[rating]"
+            value="2"
+          />
+          <label for="first-rate2" title="Not good">2 stars</label>
+          <input
+            type="radio"
+            id="first-rate3"
+            name="review[rating]"
+            value="3"
+          />
+          <label for="first-rate3" title="Average">3 stars</label>
+          <input
+            type="radio"
+            id="first-rate4"
+            name="review[rating]"
+            value="4"
+          />
+          <label for="first-rate4" title="Very good">4 stars</label>
+          <input
+            type="radio"
+            id="first-rate5"
+            name="review[rating]"
+            value="5"
+          />
+          <label for="first-rate5" title="Amazing">5 stars</label>
+        </fieldset>
       </div>
       <div class="mb-3 mt-3">
         <label for="comment" class="form-label">Comment</label>
@@ -94,9 +143,10 @@
           <h6 class="card-title">
             <i>@<b><%=review.author.username%></b></i>
           </h6>
+          <p class="starability-result" data-rating="<%=review.rating%>"></p>
           <p class="card-text"><%=review.comment%></p>
-          <p class="card-text"><%=review.rating%> &#9734;</p>
         </div>
+
         <form
           action="/listings/<%=data._id%>/reviews/<%=review._id%>?_method=DELETE"
           class="mb-3"
