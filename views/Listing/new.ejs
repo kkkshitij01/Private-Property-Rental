@@ -9,7 +9,9 @@
         method="post"
         novalidate
         class="needs-validation"
+        enctype="multipart/form-data"
       >
+        <!-- enctype is used to enable form to send files to server -->
         <div class="mb-3">
           <label for="title" class="form-label">Title</label>
           <input
@@ -35,13 +37,8 @@
           </div>
         </div>
         <div class="mb-3">
-          <label for="image" class="form-label">Image Link</label>
-          <input
-            class="form-control"
-            type="text"
-            name="listing[image]"
-            placeholder="Enter Image URL"
-          />
+          <label for="image" class="form-label">Upload image </label>
+          <input class="form-control" type="file" name="listing[image]" />
         </div>
         <div class="mb-3">
           <label for="price" class="form-label">Price</label>
