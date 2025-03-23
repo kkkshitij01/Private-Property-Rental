@@ -16,9 +16,9 @@ router.get("/new", isLoggedIn, (req, res) => {
 //Post request for adding new listing
 router.post(
   "/",
-  validateListing,
   isLoggedIn,
   upload.single("listing[image]"),
+  validateListing,
 
   wrapAsync(async (req, res, next) => {
     let url = req.file.path;
@@ -81,10 +81,17 @@ router.put(
   "/:id",
   isLoggedIn,
   isOwner,
+  upload.single("listing[image]"),
   validateListing,
   wrapAsync(async (req, res) => {
     let { id } = req.params;
-    await Listing.findByIdAndUpdate(id, { ...req.body.listing });
+    let listing = await Listing.findByIdAndUpdate(id, { ...req.body.listing });
+    if (typeof req.file !== "undefined") {
+      let url = req.file.path;
+      let filename = req.file.filename;
+      listing.image = { url, filename };
+      await listing.save();
+    }
     req.flash("success", "Listing Updated!");
 
     res.redirect(`/listings/${id}`);

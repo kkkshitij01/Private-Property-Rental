@@ -9,6 +9,7 @@
         method="post"
         novalidate
         class="needs-validation"
+        enctype="multipart/form-data"
       >
         <div class="mb-3">
           <label for="title" class="form-label">Title</label>
@@ -32,15 +33,22 @@
           </div>
         </div>
         <div class="mb-3">
-          <label for="image" class="form-label">Image</label>
-
-          <input
-            required
-            type="text"
-            value="<%=listing.image%>"
-            name="listing[image]"
-            class="form-control"
+          <label class="form-label">Old image</label>
+          <img
+            src="<%=listing.image.url%>"
+            class="card-img-top show-img"
+            alt="listing_image"
           />
+        </div>
+        <div class="mb-3">
+          <label for="image" class="form-label"
+            >Upload New Image
+            <i style="color: rgb(127, 123, 123); font-size: 0.7rem">
+              (Optional)</i
+            ></label
+          >
+
+          <input type="file" name="listing[image]" class="form-control" />
         </div>
         <div class="mb-3">
           <label for="price" class="form-label">Price</label>
