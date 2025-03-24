@@ -54,9 +54,6 @@ main()
     console.log(err);
   });
 
-app.get("/", (req, res) => {
-  res.send("Home");
-});
 app.use(session(sessionOption));
 app.use(flash());
 

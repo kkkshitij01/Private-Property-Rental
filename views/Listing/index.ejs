@@ -1,7 +1,70 @@
 <% layout("/layouts/boilerplate")%>
+<style>
+  #filters {
+    display: flex;
+    justify-content: space-evenly;
+    flex: wrap;
+  }
+  .filter {
+    text-align: center;
+    margin-right: 1rem;
+    margin-top: 2rem;
+    opacity: 0.7;
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+  .filter i {
+    font-size: 1.2rem;
+    color: black;
+  }
+  .filter p {
+    font-size: 1rem;
+    color: black;
+  }
+  .filter:hover {
+    opacity: 1;
+  }
+</style>
 <body>
-  <p style="font-size: xx-large; font-weight: 500">All Listings</p>
-  <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
+  <div id="filters">
+    <div class="filter">
+      <div><i class="fa-solid fa-fire"></i></div>
+      <p>Trending</p>
+    </div>
+    <div class="filter">
+      <div><i class="fa-solid fa-couch"></i></div>
+      <p>Furnished</p>
+    </div>
+    <div class="filter">
+      <div><i class="fa-solid fa-house"></i></div>
+      <p>Villa</p>
+    </div>
+    <div class="filter">
+      <div><i class="fa-solid fa-person-swimming"></i></div>
+      <p>Pool House</p>
+    </div>
+    <div class="filter">
+      <div><i class="fa-solid fa-wheat-awn"></i></div>
+      <p>Farm House</p>
+    </div>
+    <div class="filter">
+      <div><i class="fa-solid fa-store"></i></div>
+      <p>Shop</p>
+    </div>
+    <div class="filter">
+      <div><i class="fa-solid fa-door-open"></i></div>
+      <p>Rooms</p>
+    </div>
+    <div class="filter">
+      <div><i class="fa-solid fa-tree"></i></div>
+      <p>Cabins</p>
+    </div>
+    <div class="filter">
+      <div><i class="fa-solid fa-building"></i></div>
+      <p>Flat</p>
+    </div>
+  </div>
+  <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mt-3">
     <%for(let data of listingData){%>
     <a href="/listings/<%=data._id%>" class="listing-link">
       <div class="card listing-card col">
