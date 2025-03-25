@@ -31,6 +31,12 @@ router.post(
     res.redirect("/listings");
   })
 );
+router.get("/mylistings", isLoggedIn, async (req, res) => {
+  let id = req.user._id;
+  console.log(id);
+  const listingData = await Listing.find({ owner: id });
+  res.render("listing/myListings.ejs", { listingData });
+});
 
 // Index route
 

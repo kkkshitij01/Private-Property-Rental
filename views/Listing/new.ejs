@@ -37,6 +37,23 @@
           </div>
         </div>
         <div class="mb-3">
+          <label for="category" class="form-label">Category</label>
+          <select required name="listing[category]" class="form-control">
+            <option value="">Select a category</option>
+            <option value="unfurnished">Unfurnished</option>
+            <option value="furnished">Furnished</option>
+            <option value="villa">Villa</option>
+            <option value="luxury">Luxury</option>
+            <option value="pool">Pool</option>
+            <option value="farm">Farm</option>
+            <option value="shop">Shop</option>
+            <option value="pg">PG</option>
+            <option value="flat">Flat</option>
+          </select>
+          <div class="invalid-feedback">Please select a category</div>
+        </div>
+
+        <div class="mb-3">
           <label for="image" class="form-label">Upload image </label>
           <input class="form-control" type="file" name="listing[image]" />
         </div>
@@ -86,22 +103,6 @@
           <div class="invalid-feedback">
             Country Is Required. Please Specify A Valid Country
           </div>
-        </div>
-        <div class="mb-3">
-          <label for="category" class="form-label">Category</label>
-          <select required name="listing[category]" class="form-control">
-            <option value="">Select a category</option>
-            <option value="unfurnished">Unfurnished</option>
-            <option value="furnished">Furnished</option>
-            <option value="villa">Villa</option>
-            <option value="luxury">Luxury</option>
-            <option value="pool">Pool</option>
-            <option value="farm">Farm</option>
-            <option value="shop">Shop</option>
-            <option value="pg">PG</option>
-            <option value="flat">Flat</option>
-          </select>
-          <div class="invalid-feedback">Please select a category</div>
         </div>
 
         <button class="btn btn-dark add-btn mt-3">Add</button>

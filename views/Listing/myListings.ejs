@@ -1,157 +1,146 @@
 <% layout("/layouts/boilerplate")%>
 <style>
-  #filters {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0.5rem;
-    margin: 0.5rem auto;
-    max-width: 1000px;
-    gap: 1.5rem;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-  }
-
-  #filters a {
-    margin-right: 0.5rem;
-    text-decoration: none;
-    position: relative;
-    flex-shrink: 0;
-  }
-
-  .filter {
+  .mylisting-title {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #333;
     text-align: center;
-    padding: 0.3rem 0;
-    cursor: pointer;
-    min-width: 60px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    margin: 1.5rem 0;
+    padding: 0.8rem;
+    position: relative;
+    letter-spacing: 1px;
+    background: #f8f9fa;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
   }
 
-  .filter i {
-    font-size: 1.2rem;
-    color: #666;
-    margin-bottom: 0.2rem;
-    transition: color 0.2s ease;
+  .mylisting-title:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
 
-  .filter p {
-    font-size: 0.7rem;
-    color: #666;
-    margin: 0;
-    font-weight: 500;
-    white-space: nowrap;
-    transition: color 0.2s ease;
-  }
-
-  .filter:hover i,
-  .filter:hover p {
-    color: rgb(255, 42, 0);
-  }
-
-  .filter.active i,
-  .filter.active p {
-    color: rgb(255, 42, 0);
-  }
-
-  .filter.active::after {
+  .mylisting-title::after {
     content: "";
     position: absolute;
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
-    width: 15px;
+    width: 60px;
     height: 2px;
-    background: rgb(255, 42, 0);
+    background: #007bff;
     border-radius: 1px;
   }
 
-  .listing-card {
-    border: none !important;
-    margin-bottom: 2rem;
-    position: relative;
-    overflow: hidden;
-    border-radius: 8px !important;
-    transition: all 0.2s ease;
-    background: #fff;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  .no-listings {
+    text-align: center;
+    padding: 3rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+    color: #6c757d;
+    max-width: 500px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
   }
 
-  .listing-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+  .no-listings i {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    color: #adb5bd;
   }
 
-  .card-img-top {
-    border-radius: 8px 8px 0 0 !important;
-    width: 100% !important;
-    object-fit: cover !important;
-    height: 20rem !important;
+  .no-listings h3 {
+    margin-bottom: 1rem;
+    color: #495057;
   }
 
-  .card-body {
-    padding: 1rem !important;
-    background: #fff;
-    border-top: 1px solid rgba(0, 0, 0, 0.05);
+  .no-listings p {
+    margin-bottom: 0;
+    font-size: 1.1rem;
   }
 
-  .card-text {
-    margin: 0;
-    color: #333;
-    font-size: 1rem;
-    line-height: 1.4;
+  .empty-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 400px;
+    width: 100%;
   }
 
-  .card-text b {
-    color: #111;
-    font-weight: 500;
-    display: block;
-    margin-bottom: 0.3rem;
-  }
-
-  .listing-link {
-    text-decoration: none;
-    display: block;
-  }
-
-  .price-tag {
-    color: #4a4a4a;
-    font-weight: 500;
-    font-size: 0.95rem;
-    display: block;
-    margin-top: 0.3rem;
-  }
-
-  /* Remove overlay and other unnecessary effects */
-  .card-img-overlay {
-    display: none;
+  .listings-section {
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
   }
 </style>
 <body>
-  <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mt-3">
-    <%for(let data of listingData){%>
-    <a href="/listings/<%=data._id%>" class="listing-link">
-      <div class="card listing-card col">
-        <img
-          src="<%=data.image.url%>"
-          class="card-img-top"
-          alt="listing_image"
-        />
-        <div class="card-body">
-          <p class="card-text">
-            <b><%=data.title%></b>
-            <span class="price-tag"
-              >&#8377;<%=data.price.toLocaleString("en-IN")%>/Month</span
-            >
+  <div class="listings-section">
+    <h1 class="mylisting-title">Listings</h1>
+    <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mt-3">
+      <% let hasListings = false %> <%for(let listing of listingData){%>
+      <%if(listing.isAvailable === true){%> <% hasListings = true %>
+      <a href="/listings/<%=listing._id%>" class="listing-link">
+        <div class="card listing-card col">
+          <img
+            src="<%=listing.image.url%>"
+            class="card-img-top"
+            alt="listing_image"
+          />
+          <div class="card-body">
+            <p class="card-text">
+              <b><%=listing.title%></b>
+              <span class="price-tag"
+                >&#8377;<%=listing.price.toLocaleString("en-IN")%>/Month</span
+              >
+            </p>
+          </div>
+        </div>
+      </a>
+      <%}%> <%}%> <% if (!hasListings) { %>
+      <div class="empty-container">
+        <div class="no-listings">
+          <i class="fas fa-home"></i>
+          <h3>No Active Listings</h3>
+          <p>
+            You haven't posted any listings yet. Start by creating a new
+            listing!
           </p>
         </div>
       </div>
-    </a>
-    <%}%>
+      <% } %>
+    </div>
+  </div>
+
+  <div class="listings-section">
+    <h1 class="mylisting-title">Unlisted Listings</h1>
+    <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mt-3">
+      <% let hasUnlisted = false %> <% for(let listing of listingData){%>
+      <%if(!listing.isAvailable === true){%> <% hasUnlisted = true %>
+      <a href="/listings/<%=listing._id%>" class="listing-link">
+        <div class="card listing-card col">
+          <img
+            src="<%=listing.image.url%>"
+            class="card-img-top"
+            alt="listing_image"
+          />
+          <div class="card-body">
+            <p class="card-text">
+              <b><%=listing.title%></b>
+              <span class="price-tag"
+                >&#8377;<%=listing.price.toLocaleString("en-IN")%>/Month</span
+              >
+            </p>
+          </div>
+        </div>
+      </a>
+      <% }%> <%}%> <% if (!hasUnlisted) { %>
+      <div class="empty-container">
+        <div class="no-listings">
+          <i class="fas fa-archive"></i>
+          <h3>No Unlisted Properties</h3>
+          <p>All your properties are currently active and listed.</p>
+        </div>
+      </div>
+      <% } %>
+    </div>
   </div>
 </body>

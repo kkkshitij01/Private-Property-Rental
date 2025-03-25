@@ -38,6 +38,7 @@ const listingSchema = new Schema({
     ],
     required: true,
   },
+  isAvailable: { type: Boolean, default: true },
 });
 
 //Mongoose middleware to delete all the comments associated with a listing
