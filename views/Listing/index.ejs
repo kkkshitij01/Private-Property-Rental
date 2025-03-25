@@ -5,6 +5,9 @@
     justify-content: space-evenly;
     flex: wrap;
   }
+  #filters a {
+    text-decoration: none;
+  }
   .filter {
     text-align: center;
     margin-right: 1rem;
@@ -13,6 +16,7 @@
     transition: all 0.3s ease;
     cursor: pointer;
   }
+
   .filter i {
     font-size: 1.2rem;
     color: black;
@@ -27,42 +31,66 @@
 </style>
 <body>
   <div id="filters">
-    <div class="filter">
-      <div><i class="fa-solid fa-fire"></i></div>
-      <p>Trending</p>
-    </div>
-    <div class="filter">
-      <div><i class="fa-solid fa-couch"></i></div>
-      <p>Furnished</p>
-    </div>
-    <div class="filter">
-      <div><i class="fa-solid fa-house"></i></div>
-      <p>Villa</p>
-    </div>
-    <div class="filter">
-      <div><i class="fa-solid fa-person-swimming"></i></div>
-      <p>Pool House</p>
-    </div>
-    <div class="filter">
-      <div><i class="fa-solid fa-wheat-awn"></i></div>
-      <p>Farm House</p>
-    </div>
-    <div class="filter">
-      <div><i class="fa-solid fa-store"></i></div>
-      <p>Shop</p>
-    </div>
-    <div class="filter">
-      <div><i class="fa-solid fa-door-open"></i></div>
-      <p>Rooms</p>
-    </div>
-    <div class="filter">
-      <div><i class="fa-solid fa-tree"></i></div>
-      <p>Cabins</p>
-    </div>
-    <div class="filter">
-      <div><i class="fa-solid fa-building"></i></div>
-      <p>Flat</p>
-    </div>
+    <a href="/listings">
+      <div class="filter">
+        <div><i class="fa-solid fa-house"></i></div>
+        <p>Home</p>
+      </div>
+    </a>
+    <a href="/listings?category=unfurnished">
+      <div class="filter">
+        <div><i class="fa-solid fa-person-walking-luggage"></i></div>
+        <p>Unfurnished</p>
+      </div>
+    </a>
+    <a href="/listings?category=furnished">
+      <div class="filter">
+        <div><i class="fa-solid fa-couch"></i></div>
+        <p>Furnished</p>
+      </div>
+    </a>
+    <a href="/listings?category=villa">
+      <div class="filter">
+        <div><i class="fa-solid fa-house"></i></div>
+        <p>Villa</p>
+      </div>
+    </a>
+    <a href="/listings?category=pool">
+      <div class="filter">
+        <div><i class="fa-solid fa-person-swimming"></i></div>
+        <p>Pool House</p>
+      </div>
+    </a>
+    <a href="/listings?category=farm">
+      <div class="filter">
+        <div><i class="fa-solid fa-tree-city"></i></div>
+        <p>Farm House</p>
+      </div>
+    </a>
+    <a href="/listings?category=shop">
+      <div class="filter">
+        <div><i class="fa-solid fa-store"></i></div>
+        <p>Shop</p>
+      </div>
+    </a>
+    <a href="/listings?category=pg">
+      <div class="filter">
+        <div><i class="fa-solid fa-users-line"></i></div>
+        <p>PG</p>
+      </div>
+    </a>
+    <a href="/listings?category=luxury">
+      <div class="filter">
+        <div><i class="fa-solid fa-synagogue"></i></div>
+        <p>Luxury</p>
+      </div>
+    </a>
+    <a href="/listings?category=flat">
+      <div class="filter">
+        <div><i class="fa-solid fa-building"></i></div>
+        <p>Flat</p>
+      </div>
+    </a>
   </div>
   <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mt-3">
     <%for(let data of listingData){%>

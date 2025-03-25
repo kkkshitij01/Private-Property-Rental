@@ -4,14 +4,15 @@ const Review = require("./review.js");
 
 const listingSchema = new Schema({
   title: { type: String, required: true },
-  description: { type: String },
+  description: { type: String, required: true },
   image: {
-    url: String,
-    filename: String,
+    url: { type: String, required: true },
+    filename: { type: String, required: true },
   },
-  price: { type: Number },
-  location: { type: String },
-  country: { type: String },
+  price: { type: Number, required: true },
+  street: { type: String, required: true },
+  city: { type: String },
+  country: { type: String, required: true },
   reviews: [
     {
       type: Schema.Types.ObjectId,
@@ -21,6 +22,21 @@ const listingSchema = new Schema({
   owner: {
     type: Schema.Types.ObjectId,
     ref: "User",
+  },
+  category: {
+    type: String,
+    enum: [
+      "unfurnished",
+      "furnished",
+      "villa",
+      "luxury",
+      "pool",
+      "farm",
+      "shop",
+      "pg",
+      "flat",
+    ],
+    required: true,
   },
 });
 

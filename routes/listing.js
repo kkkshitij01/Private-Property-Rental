@@ -38,8 +38,14 @@ router.post(
 router.get(
   "/",
   wrapAsync(async (req, res) => {
-    const listingData = await Listing.find({});
-    res.render("listing/index", { listingData });
+    let { category } = req.query;
+    if (category) {
+      const listingData = await Listing.find({ category });
+      res.render("listing/index", { listingData });
+    } else {
+      const listingData = await Listing.find({});
+      res.render("listing/index", { listingData });
+    }
   })
 );
 

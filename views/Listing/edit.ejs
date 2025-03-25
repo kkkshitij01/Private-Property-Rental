@@ -63,17 +63,26 @@
           <div class="invalid-feedback">Please Enter A Valid Price</div>
         </div>
         <div class="mb-3">
-          <label for="location" class="form-label">Location</label>
+          <label for="street" class="form-label">street</label>
           <input
             required
-            value="<%=listing.location%>"
+            value="<%=listing.street%>"
             type="text"
             class="form-control"
-            name="listing[location]"
+            name="listing[street]"
           />
-          <div class="invalid-feedback">
-            Location Is Required. Please Specify A Valid Location
-          </div>
+          <div class="invalid-feedback">Please Specify A Valid street</div>
+        </div>
+        <div class="mb-3">
+          <label for="city" class="form-label">City</label>
+          <input
+            required
+            value="<%=listing.city%>"
+            type="text"
+            class="form-control"
+            name="listing[city]"
+          />
+          <div class="invalid-feedback">Please Specify A Valid City.</div>
         </div>
         <div class="mb-3">
           <label for="country" class="form-label">Country</label>
@@ -87,6 +96,22 @@
           <div class="invalid-feedback">
             Country Is Required. Please Specify A Valid Country
           </div>
+        </div>
+        <div class="mb-3">
+          <label for="category" class="form-label"> Category</label>
+          <select class="form-select" name="listing[category]" required>
+            <option value="" disabled>Select a category</option>
+            <option value="unfurnished" <%= listing.category === "unfurnished" ? "selected" : "" %>>Unfurnished</option>
+            <option value="furnished" <%= listing.category === "furnished" ? "selected" : "" %>>Furnished</option>
+            <option value="villa" <%= listing.category === "villa" ? "selected" : "" %>>Villa</option>
+            <option value="pool" <%= listing.category === "pool" ? "selected" : "" %>>Pool House</option>
+            <option value="farm" <%= listing.category === "farm" ? "selected" : "" %>>Farm House</option>
+            <option value="shop" <%= listing.category === "shop" ? "selected" : "" %>>Shop</option>
+            <option value="pg" <%= listing.category === "pg" ? "selected" : "" %>>PG</option>
+            <option value="luxury" <%= listing.category === "luxury" ? "selected" : "" %>>Luxury</option>
+            <option value="flat" <%= listing.category === "flat" ? "selected" : "" %>>Flat</option>
+          </select>
+          <div class="invalid-feedback">Please select a category</div>
         </div>
         <button class="btn btn-dark edit-btn mt-3">Edit</button>
         <br /><br /><br />

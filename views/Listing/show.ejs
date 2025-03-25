@@ -15,7 +15,8 @@
           Owned by: <b><%=data.owner.username%></b> <br />
           <%=data.description%> <br />
           &#8377;<%=data.price.toLocaleString("en-IN")%> <br />
-          <%=data.location%> <br />
+          <%=data.street || "demo street"%> <br />
+          <%=data.city || "demo city"%> <br />
           <%=data.country%>
         </p>
       </div>
