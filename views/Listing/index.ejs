@@ -2,91 +2,200 @@
 <style>
   #filters {
     display: flex;
-    justify-content: space-evenly;
-    flex: wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5rem;
+    margin: 0.5rem auto;
+    max-width: 1000px;
+    gap: 1.5rem;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
   }
+
+  #filters::-webkit-scrollbar {
+    display: none;
+  }
+
   #filters a {
+    margin-right: 0.5rem;
     text-decoration: none;
+    position: relative;
+    flex-shrink: 0;
   }
+
   .filter {
     text-align: center;
-    margin-right: 1rem;
-    margin-top: 2rem;
-    opacity: 0.7;
-    transition: all 0.3s ease;
+    padding: 0.3rem 0;
     cursor: pointer;
+    min-width: 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
 
   .filter i {
     font-size: 1.2rem;
-    color: black;
+    color: #666;
+    margin-bottom: 0.2rem;
+    transition: color 0.2s ease;
   }
+
   .filter p {
-    font-size: 1rem;
-    color: black;
+    font-size: 0.7rem;
+    color: #666;
+    margin: 0;
+    font-weight: 500;
+    white-space: nowrap;
+    transition: color 0.2s ease;
   }
-  .filter:hover {
-    opacity: 1;
+
+  .filter:hover i,
+  .filter:hover p {
+    color: rgb(255, 42, 0);
+  }
+
+  .filter.active i,
+  .filter.active p {
+    color: rgb(255, 42, 0);
+  }
+
+  .filter.active::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 15px;
+    height: 2px;
+    background: rgb(255, 42, 0);
+    border-radius: 1px;
+  }
+
+  .listing-card {
+    border: none !important;
+    margin-bottom: 2rem;
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px !important;
+    transition: all 0.2s ease;
+    background: #fff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  }
+
+  .listing-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+  }
+
+  .card-img-top {
+    border-radius: 8px 8px 0 0 !important;
+    width: 100% !important;
+    object-fit: cover !important;
+    height: 20rem !important;
+  }
+
+  .card-body {
+    padding: 1rem !important;
+    background: #fff;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+  }
+
+  .card-text {
+    margin: 0;
+    color: #333;
+    font-size: 1rem;
+    line-height: 1.4;
+  }
+
+  .card-text b {
+    color: #111;
+    font-weight: 500;
+    display: block;
+    margin-bottom: 0.3rem;
+  }
+
+  .listing-link {
+    text-decoration: none;
+    display: block;
+  }
+
+  .price-tag {
+    color: #4a4a4a;
+    font-weight: 500;
+    font-size: 0.95rem;
+    display: block;
+    margin-top: 0.3rem;
+  }
+
+  /* Remove overlay and other unnecessary effects */
+  .card-img-overlay {
+    display: none;
   }
 </style>
 <body>
   <div id="filters">
     <a href="/listings">
-      <div class="filter">
+      <div class="filter <%= !query.category ? 'active' : '' %>">
         <div><i class="fa-solid fa-house"></i></div>
         <p>Home</p>
       </div>
     </a>
     <a href="/listings?category=unfurnished">
-      <div class="filter">
+      <div
+        class="filter <%= query.category === 'unfurnished' ? 'active' : '' %>"
+      >
         <div><i class="fa-solid fa-person-walking-luggage"></i></div>
         <p>Unfurnished</p>
       </div>
     </a>
     <a href="/listings?category=furnished">
-      <div class="filter">
+      <div class="filter <%= query.category === 'furnished' ? 'active' : '' %>">
         <div><i class="fa-solid fa-couch"></i></div>
         <p>Furnished</p>
       </div>
     </a>
     <a href="/listings?category=villa">
-      <div class="filter">
+      <div class="filter <%= query.category === 'villa' ? 'active' : '' %>">
         <div><i class="fa-solid fa-house"></i></div>
         <p>Villa</p>
       </div>
     </a>
     <a href="/listings?category=pool">
-      <div class="filter">
+      <div class="filter <%= query.category === 'pool' ? 'active' : '' %>">
         <div><i class="fa-solid fa-person-swimming"></i></div>
         <p>Pool House</p>
       </div>
     </a>
     <a href="/listings?category=farm">
-      <div class="filter">
+      <div class="filter <%= query.category === 'farm' ? 'active' : '' %>">
         <div><i class="fa-solid fa-tree-city"></i></div>
         <p>Farm House</p>
       </div>
     </a>
     <a href="/listings?category=shop">
-      <div class="filter">
+      <div class="filter <%= query.category === 'shop' ? 'active' : '' %>">
         <div><i class="fa-solid fa-store"></i></div>
         <p>Shop</p>
       </div>
     </a>
     <a href="/listings?category=pg">
-      <div class="filter">
+      <div class="filter <%= query.category === 'pg' ? 'active' : '' %>">
         <div><i class="fa-solid fa-users-line"></i></div>
         <p>PG</p>
       </div>
     </a>
     <a href="/listings?category=luxury">
-      <div class="filter">
+      <div class="filter <%= query.category === 'luxury' ? 'active' : '' %>">
         <div><i class="fa-solid fa-synagogue"></i></div>
         <p>Luxury</p>
       </div>
     </a>
     <a href="/listings?category=flat">
-      <div class="filter">
+      <div class="filter <%= query.category === 'flat' ? 'active' : '' %>">
         <div><i class="fa-solid fa-building"></i></div>
         <p>Flat</p>
       </div>
@@ -100,13 +209,13 @@
           src="<%=data.image.url%>"
           class="card-img-top"
           alt="listing_image"
-          style="height: 20rem"
         />
-        <div class="card-img-overlay"></div>
         <div class="card-body">
           <p class="card-text">
-            <b> <%=data.title%></b> <br />
-            &#8377;<%=data.price.toLocaleString("en-IN")%>/Night
+            <b><%=data.title%></b>
+            <span class="price-tag"
+              >&#8377;<%=data.price.toLocaleString("en-IN")%>/Month</span
+            >
           </p>
         </div>
       </div>

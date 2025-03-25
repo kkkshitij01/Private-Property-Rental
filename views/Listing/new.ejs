@@ -54,7 +54,6 @@
         <div class="mb-3">
           <label for="street" class="form-label">Street</label>
           <input
-
             type="text"
             name="listing[street]"
             class="form-control"
@@ -89,18 +88,18 @@
           </div>
         </div>
         <div class="mb-3">
-          <label for="category" class="form-label"> Category</label>
-          <select class="form-select" name="listing[category]" required>
-            <option value="" disabled>Select a category</option>
-            <option value="unfurnished" <%= listing.category === "unfurnished" ? "selected" : "" %>>Unfurnished</option>
-            <option value="furnished" <%= listing.category === "furnished" ? "selected" : "" %>>Furnished</option>
-            <option value="villa" <%= listing.category === "villa" ? "selected" : "" %>>Villa</option>
-            <option value="pool" <%= listing.category === "pool" ? "selected" : "" %>>Pool House</option>
-            <option value="farm" <%= listing.category === "farm" ? "selected" : "" %>>Farm House</option>
-            <option value="shop" <%= listing.category === "shop" ? "selected" : "" %>>Shop</option>
-            <option value="pg" <%= listing.category === "pg" ? "selected" : "" %>>PG</option>
-            <option value="luxury" <%= listing.category === "luxury" ? "selected" : "" %>>Luxury</option>
-            <option value="flat" <%= listing.category === "flat" ? "selected" : "" %>>Flat</option>
+          <label for="category" class="form-label">Category</label>
+          <select required name="listing[category]" class="form-control">
+            <option value="">Select a category</option>
+            <option value="unfurnished">Unfurnished</option>
+            <option value="furnished">Furnished</option>
+            <option value="villa">Villa</option>
+            <option value="luxury">Luxury</option>
+            <option value="pool">Pool</option>
+            <option value="farm">Farm</option>
+            <option value="shop">Shop</option>
+            <option value="pg">PG</option>
+            <option value="flat">Flat</option>
           </select>
           <div class="invalid-feedback">Please select a category</div>
         </div>

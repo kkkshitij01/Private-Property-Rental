@@ -1,13 +1,13 @@
 <style>
   .btn-search {
-    background-color: orangered;
+    background-color: rgb(255, 42, 0);
     border-radius: 1.2rem;
     color: wheat;
     padding: 0 1rem;
   }
   .btn-search:hover {
     color: black;
-    border: 2px solid orangered;
+    border: 2px solid rgb(255, 42, 0);
   }
   .btn-search:hover i {
     color: black;
@@ -25,10 +25,69 @@
   .search-input::placeholder {
     text-align: left;
   }
+  .brand {
+    padding-left: 1rem;
+  }
+  .navbar-brand {
+    color: rgb(255, 42, 0);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    text-decoration: none;
+    padding: 0.5rem 0;
+  }
+
+  .brand-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    background-color: rgb(255, 42, 0);
+    border-radius: 1.5rem;
+    box-shadow: 0 4px 12px rgba(255, 215, 0, 0.2);
+  }
+
+  .brand-icon i {
+    font-size: 1.8rem;
+    color: white;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .brand-text {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .brand-name {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: black;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+  }
+
+  .brand-tagline {
+    font-size: 0.8rem;
+    color: rgb(255, 42, 0);
+    font-weight: 500;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
 </style>
 <nav class="navbar navbar-expand-md bg-body-light border-bottom sticky-top">
   <div class="container-fluid">
-    <a class="navbar-brand" href="/"><i class="fa-solid fa-school-flag"></i></a>
+    <div class="brand">
+      <a class="navbar-brand" href="/listings">
+        <div class="brand-icon">
+          <i class="fa-solid fa-house-circle-check"></i>
+        </div>
+        <div class="brand-text">
+          <span class="brand-name">RentEase</span>
+          <span class="brand-tagline">Find Your Perfect Home</span>
+        </div>
+      </a>
+    </div>
     <button
       class="navbar-toggler"
       type="button"
@@ -38,14 +97,12 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav">
-        <a class="nav-link" href="/listings">Explore</a>
-      </div>
       <div class="navbar-nav ms-auto">
-        <form class="d-flex" role="search">
+        <form class="d-flex" method="GET" action="/listings">
           <input
             class="form-control me-2 search-input"
             type="search"
+            name="search"
             placeholder="Search"
           />
           <button class="btn btn-search" type="submit">

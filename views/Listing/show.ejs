@@ -1,10 +1,10 @@
 <% layout("/layouts/boilerplate")%>
 <body>
   <div class="row mt-3">
-    <div class="col-8 offset-3">
+    <div class="col-8 offset-2">
       <p style="font-size: xx-large; font-weight: 500"><%=data.title%></p>
     </div>
-    <div class="card col-6 offset-3 show-card listing-card">
+    <div class="card col-8 offset-2 show-card listing-card">
       <img
         src="<%=data.image.url%>"
         class="card-img-top show-img"
@@ -24,7 +24,7 @@
   </div>
   <% if (currUser && currUser._id.toString() === data.owner._id.toString()) { %>
   <div class="btns">
-    <a href="/listings/<%=data._id%>/edit" class="btn edit-btn col-1 offset-3"
+    <a href="/listings/<%=data._id%>/edit" class="btn edit-btn col-1 offset-2"
       >Edit</a
     >
 
@@ -33,138 +33,259 @@
     </form>
   </div>
   <%}%>
-  <div class="col-8 offset-3">
-    <hr />
-    <h4>Leave A Review</h4>
-    <form
-      action="/listings/<%=data._id%>/reviews"
-      method="post"
-      class="needs-validation"
-      novalidate
-    >
-      <!-- <div class="mb-3 mt-3">
-        <label for="rating" class="form-label">Rating</label>
-        <input
-          type="range"
-          min="1"
-          max="5"
-          id="rating"
-          name="review[rating]"
-          class="form-range"
-        />
-      </div> -->
-      <div class="mb-3 mt-3">
-        <label for="rating" class="form-label">Rating</label>
-        <fieldset class="starability-basic">
-          <input
-            type="radio"
-            id="no-rate"
-            class="input-no-rate"
-            name="review[rating]"
-            value="1"
-            checked
-            aria-label="No rating."
-          />
-          <input
-            type="radio"
-            id="first-rate1"
-            name="review[rating]"
-            value="1"
-          />
-          <label for="first-rate1" title="Terrible">1 star</label>
-          <input
-            type="radio"
-            id="first-rate2"
-            name="review[rating]"
-            value="2"
-          />
-          <label for="first-rate2" title="Not good">2 stars</label>
-          <input
-            type="radio"
-            id="first-rate3"
-            name="review[rating]"
-            value="3"
-          />
-          <label for="first-rate3" title="Average">3 stars</label>
-          <input
-            type="radio"
-            id="first-rate4"
-            name="review[rating]"
-            value="4"
-          />
-          <label for="first-rate4" title="Very good">4 stars</label>
-          <input
-            type="radio"
-            id="first-rate5"
-            name="review[rating]"
-            value="5"
-          />
-          <label for="first-rate5" title="Amazing">5 stars</label>
-        </fieldset>
-      </div>
-      <div class="mb-3 mt-3">
-        <label for="comment" class="form-label">Comment</label>
-        <textarea
-          required
-          name="review[comment]"
-          id="comment"
-          cols="30"
-          class="form-control"
-          rows="5"
-        ></textarea>
-        <div class="invalid-feedback">Please add some comment</div>
-      </div>
-      <button class="comment-btn">
-        <div class="svg-wrapper-1">
-          <div class="svg-wrapper">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              width="24"
-              height="24"
+  <br />
+  <br />
+  <div class="col-8 offset-2">
+    <% if (currUser) { %>
+    <div class="review-form-container p-4 bg-light rounded">
+      <h4 class="mb-4">Leave A Review</h4>
+      <form
+        action="/listings/<%=data._id%>/reviews"
+        method="post"
+        class="needs-validation"
+        novalidate
+      >
+        <div class="mb-4">
+          <label for="rating" class="form-label fw-bold">Rating</label>
+          <fieldset class="starability-basic">
+            <input
+              type="radio"
+              id="no-rate"
+              class="input-no-rate"
+              name="review[rating]"
+              value="1"
+              checked
+              aria-label="No rating."
+            />
+            <input
+              type="radio"
+              id="first-rate1"
+              name="review[rating]"
+              value="1"
+            />
+            <label for="first-rate1" title="Terrible">1 star</label>
+            <input
+              type="radio"
+              id="first-rate2"
+              name="review[rating]"
+              value="2"
+            />
+            <label for="first-rate2" title="Not good">2 stars</label>
+            <input
+              type="radio"
+              id="first-rate3"
+              name="review[rating]"
+              value="3"
+            />
+            <label for="first-rate3" title="Average">3 stars</label>
+            <input
+              type="radio"
+              id="first-rate4"
+              name="review[rating]"
+              value="4"
+            />
+            <label for="first-rate4" title="Very good">4 stars</label>
+            <input
+              type="radio"
+              id="first-rate5"
+              name="review[rating]"
+              value="5"
+            />
+            <label for="first-rate5" title="Amazing">5 stars</label>
+          </fieldset>
+        </div>
+        <div class="mb-4">
+          <label for="comment" class="form-label fw-bold">Comment</label>
+          <textarea
+            required
+            name="review[comment]"
+            id="comment"
+            cols="30"
+            class="form-control"
+            rows="5"
+            placeholder="Share your experience..."
+          ></textarea>
+          <div class="invalid-feedback">Please add some comment</div>
+        </div>
+        <button class="comment-btn">
+          <div class="svg-wrapper-1">
+            <div class="svg-wrapper">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                width="24"
+                height="24"
+              >
+                <path fill="none" d="M0 0h24v24H0z"></path>
+                <path
+                  fill="currentColor"
+                  d="M1.946 9.315c-.522-.174-.527-.455.01-.634l19.087-6.362c.529-.176.832.12.684.638l-5.454 19.086c-.15.529-.455.547-.679.045L12 14l6-8-8 6-8.054-2.685z"
+                ></path>
+              </svg>
+            </div>
+          </div>
+          <span>COMMENT</span>
+        </button>
+      </form>
+    </div>
+    <% } else { %>
+    <div class="alert alert-info">
+      Please <a href="/login" class="alert-link">login</a> to leave a review.
+    </div>
+    <% } %> <%if(data.reviews && data.reviews.length > 0) { %>
+    <div class="reviews-section">
+      <h4 class="reviews-title mb-4">Reviews</h4>
+      <div class="row g-4">
+        <%for(review of data.reviews){ %>
+        <div class="col-md-6">
+          <div class="review-card">
+            <div class="review-header">
+              <div class="reviewer-info">
+                <i class="fa-solid fa-user-circle"></i>
+                <span class="reviewer-name">@<%=review.author.username%></span>
+              </div>
+              <div class="rating">
+                <% for(let i = 0; i < review.rating; i++) { %>
+                <i class="fa-solid fa-star" style="color: #ffd700"></i>
+                <% } %>
+              </div>
+            </div>
+            <div class="review-content">
+              <p class="review-text"><%=review.comment%></p>
+            </div>
+
+            <form
+              action="/listings/<%=data._id%>/reviews/<%=review._id%>?_method=DELETE"
+              class="review-actions"
+              method="post"
             >
-              <path fill="none" d="M0 0h24v24H0z"></path>
-              <path
-                fill="currentColor"
-                d="M1.946 9.315c-.522-.174-.527-.455.01-.634l19.087-6.362c.529-.176.832.12.684.638l-5.454 19.086c-.15.529-.455.547-.679.045L12 14l6-8-8 6-8.054-2.685z"
-              ></path>
-            </svg>
+              <% if (currUser && currUser._id.toString() ===
+              review.author._id.toString()) { %>
+              <button class="delete-review-btn">
+                <i class="fa-solid fa-trash"></i> Delete
+              </button>
+              <%}%>
+            </form>
           </div>
         </div>
-        <span>COMMENT</span>
-      </button>
-    </form>
-    <br /><br />
-    <hr />
-    <p><b> Reviews </b></p>
-    <div class="row">
-      <%for(review of data.reviews){ %>
-      <div class="card col-5 mb-4 ms-3">
-        <div class="card-body">
-          <h6 class="card-title">
-            <i>@<b><%=review.author.username%></b></i>
-          </h6>
-          <p>
-            <%=review.rating%><i
-              class="fa-solid fa-star fa-sm"
-              style="color: #f5cd3d"
-            ></i>
-          </p>
-          <p class="card-text"><%=review.comment%></p>
-        </div>
-
-        <form
-          action="/listings/<%=data._id%>/reviews/<%=review._id%>?_method=DELETE"
-          class="mb-3"
-          method="post"
-        >
-          <% if (currUser && currUser._id.toString() ===
-          review.author._id.toString()) { %>
-          <button class="btn btn-sm btn-dark">Delete</button>
-          <%}%>
-        </form>
+        <%}%>
       </div>
-      <%}%>
     </div>
+    <%}%>
   </div>
 </body>
+
+<style>
+  .review-form-container {
+    margin-bottom: 3rem;
+  }
+
+  .reviews-section {
+    margin-top: 2rem;
+    padding: 1rem;
+  }
+
+  .reviews-title {
+    color: #2c3e50;
+    font-weight: 600;
+    position: relative;
+    display: inline-block;
+  }
+
+  .reviews-title::after {
+    content: "";
+    position: absolute;
+    width: 50%;
+    height: 3px;
+    bottom: -8px;
+    left: 0;
+    background: linear-gradient(to right, #3498db, #2ecc71);
+    border-radius: 2px;
+  }
+
+  .review-card {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+  }
+
+  .review-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+  }
+
+  .review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+
+  .reviewer-info {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .reviewer-info i {
+    font-size: 1.5rem;
+    color: #3498db;
+  }
+
+  .reviewer-name {
+    font-weight: 600;
+    color: #2c3e50;
+  }
+
+  .rating {
+    display: flex;
+    gap: 0.2rem;
+  }
+
+  .rating i {
+    font-size: 0.9rem;
+  }
+
+  .review-content {
+    margin: 1rem 0;
+  }
+
+  .review-text {
+    color: #34495e;
+    line-height: 1.6;
+    margin: 0;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    max-width: 100%;
+  }
+
+  .review-actions {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .delete-review-btn {
+    background: none;
+    border: none;
+    color: #e74c3c;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .delete-review-btn:hover {
+    background: rgba(231, 76, 60, 0.1);
+  }
+
+  .delete-review-btn i {
+    font-size: 0.9rem;
+  }
+</style>

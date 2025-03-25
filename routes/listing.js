@@ -38,14 +38,29 @@ router.post(
 router.get(
   "/",
   wrapAsync(async (req, res) => {
-    let { category } = req.query;
+    let { category, search } = req.query;
+    let query = {};
+
     if (category) {
-      const listingData = await Listing.find({ category });
-      res.render("listing/index", { listingData });
-    } else {
-      const listingData = await Listing.find({});
-      res.render("listing/index", { listingData });
+      query.category = category;
     }
+
+    if (search) {
+      query.$or = [
+        { title: { $regex: search, $options: "i" } },
+        { description: { $regex: search, $options: "i" } },
+        { city: { $regex: search, $options: "i" } },
+        { street: { $regex: search, $options: "i" } },
+        { category: { $regex: search, $options: "i" } },
+      ];
+    }
+
+    const listingData = await Listing.find(query);
+    if (listingData.length === 0) {
+      req.flash("error", "No listings found");
+      res.redirect("/listings");
+    }
+    res.render("listing/index", { listingData, query: req.query });
   })
 );
 
