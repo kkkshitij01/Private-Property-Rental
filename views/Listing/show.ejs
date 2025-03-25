@@ -12,7 +12,6 @@
       />
       <div class="card-body">
         <p class="card-text">
-          Owned by: <b><%=data.owner.username%></b> <br />
           <%=data.description%> <br />
           &#8377;<%=data.price.toLocaleString("en-IN")%> <br />
           <%=data.street || "demo street"%> <br />
@@ -36,9 +35,29 @@
   <br />
   <br />
   <div class="col-8 offset-2">
-    <% if (currUser) { %>
-    <div class="review-form-container p-4 bg-light rounded">
-      <h4 class="mb-4">Leave A Review</h4>
+    <% if (!currUser) { %>
+    <div class="alert alert-info">
+      Please <a href="/login" class="alert-link">login</a> to view
+      <span class="highlight-text">owner details</span> and
+      <span class="highlight-text">leave reviews</span>.
+    </div>
+    <% } %> <% if (currUser) { %>
+    <div class="user-details-container p-4 rounded mb-4">
+      <h4 class="section-title mb-4">Owner Details</h4>
+      <div class="user-info">
+        <div class="user-header">
+          <i class="fa-solid fa-user-circle"></i>
+          <span class="user-name"><%=data.owner.username%></span>
+        </div>
+        <div class="user-email">
+          <i class="fa-solid fa-envelope"></i>
+          <span><%=data.owner.email%></span>
+        </div>
+      </div>
+    </div>
+    <% } %> <% if (currUser) { %>
+    <div class="review-form-container p-4 rounded">
+      <h4 class="section-title mb-4">Leave A Review</h4>
       <form
         action="/listings/<%=data._id%>/reviews"
         method="post"
@@ -128,10 +147,6 @@
         </button>
       </form>
     </div>
-    <% } else { %>
-    <div class="alert alert-info">
-      Please <a href="/login" class="alert-link">login</a> to leave a review.
-    </div>
     <% } %> <%if(data.reviews && data.reviews.length > 0) { %>
     <div class="reviews-section">
       <h4 class="reviews-title mb-4">Reviews</h4>
@@ -176,8 +191,80 @@
 </body>
 
 <style>
+  .section-title {
+    color: #2c3e50;
+    font-weight: 600;
+    position: relative;
+    display: inline-block;
+    padding-bottom: 8px;
+  }
+
+  .section-title::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 3px;
+    bottom: 0;
+    left: 0;
+    background: linear-gradient(to right, #3498db, #2ecc71);
+    border-radius: 2px;
+  }
+
+  .user-details-container,
   .review-form-container {
-    margin-bottom: 3rem;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .user-details-container:hover,
+  .review-form-container:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  }
+
+  .user-info {
+    padding: 1.5rem;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  }
+
+  .user-header {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin-bottom: 1.2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  }
+
+  .user-header i,
+  .user-email i {
+    font-size: 2rem;
+    color: #3498db;
+    background: rgba(52, 152, 219, 0.1);
+    padding: 0.5rem;
+    border-radius: 50%;
+  }
+
+  .user-name {
+    font-weight: 600;
+    color: #2c3e50;
+    font-size: 1.2rem;
+  }
+
+  .user-email {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    color: #34495e;
+    padding: 0.5rem 0;
+  }
+
+  .user-email i {
+    color: #3498db;
   }
 
   .reviews-section {
@@ -195,7 +282,7 @@
   .reviews-title::after {
     content: "";
     position: absolute;
-    width: 50%;
+    width: 100%;
     height: 3px;
     bottom: -8px;
     left: 0;
@@ -287,5 +374,18 @@
 
   .delete-review-btn i {
     font-size: 0.9rem;
+  }
+
+  .highlight-text {
+    background: linear-gradient(
+      120deg,
+      rgba(52, 152, 219, 0.2),
+      rgba(46, 204, 113, 0.2)
+    );
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    font-weight: 500;
+    color: #2c3e50;
+    border: 1px solid rgba(52, 152, 219, 0.3);
   }
 </style>
