@@ -1,49 +1,71 @@
 <% layout("/layouts/boilerplate")%>
 <body>
-  <div class="row mt-3">
-    <div class="col-8 offset-2">
-      <p style="font-size: xx-large; font-weight: 500"><%=data.title%></p>
+  <div class="main-row">
+    <div class="listing-title-container">
+      <p class="listing-title"><%=data.title%></p>
     </div>
-    <div class="card col-8 offset-2 show-card listing-card">
-      <img
-        src="<%=data.image.url%>"
-        class="card-img-top show-img"
-        alt="listing_image"
-      />
-      <div class="card-body">
-        <p class="card-text">
-          <%=data.description%> <br />
-          &#8377;<%=data.price.toLocaleString("en-IN")%> <br />
-          <%=data.street || "demo street"%> <br />
-          <%=data.city || "demo city"%> <br />
-          <%=data.country%>
-        </p>
+    <div class="listing-card">
+      <div class="image-container">
+        <img
+          src="<%=data.image.url%>"
+          class="listing-image"
+          alt="listing_image"
+        />
+        <div class="price-overlay">
+          <span class="price-value"
+            >&#8377;<%=data.price.toLocaleString("en-IN")%></span
+          >
+          <span class="price-period">/month</span>
+        </div>
+      </div>
+      <div class="listing-body">
+        <div class="listing-details">
+          <div class="description-section">
+            <h3 class="detail-heading">About this property</h3>
+            <p class="description-text"><%=data.description%></p>
+          </div>
+
+          <div class="detail-section">
+            <div class="location-info">
+              <div class="detail-row">
+                <i class="fa-solid fa-map-marker-alt"></i>
+                <span><%=data.street || "demo street"%></span>
+              </div>
+              <div class="detail-row">
+                <i class="fa-solid fa-road"></i>
+                <span><%=data.city || "demo city"%>, <%=data.country%></span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
   <% if (currUser && currUser._id.toString() === data.owner._id.toString()) { %>
-  <div class="btns">
-    <a href="/listings/<%=data._id%>/edit" class="btn edit-btn col-1 offset-2"
-      >Edit</a
-    >
-
-    <form action="/listings/<%=data._id%>?_method=DELETE" method="post">
-      <button class="btn btn-dark offset-5">Delete</button>
-    </form>
+  <div class="action-buttons">
+    <div class="button-group">
+      <a href="/listings/<%=data._id%>/edit" class="edit-button">Edit</a>
+      <form
+        action="/listings/<%=data._id%>?_method=DELETE"
+        method="post"
+        class="delete-form"
+      >
+        <button class="delete-button">Delete</button>
+      </form>
+    </div>
   </div>
   <%}%>
-  <br />
-  <br />
-  <div class="col-8 offset-2">
+  <div class="spacer"></div>
+  <div class="content-container">
     <% if (!currUser) { %>
-    <div class="alert alert-info">
+    <div class="login-alert">
       Please <a href="/login" class="alert-link">login</a> to view
       <span class="highlight-text">owner details</span> and
-      <span class="highlight-text">leave reviews</span>.
+      <span class="highlight-text">leave reviews</span>
     </div>
     <% } %> <% if (currUser) { %>
-    <div class="user-details-container p-4 rounded mb-5">
-      <h4 class="section-title mb-4">Owner Details</h4>
+    <div class="user-details-container">
+      <h4 class="section-title">Owner Details</h4>
       <div class="user-info">
         <div class="user-header">
           <i class="fa-solid fa-user-circle"></i>
@@ -56,16 +78,16 @@
       </div>
     </div>
     <% } %> <% if (currUser) { %>
-    <div class="review-form-container p-4 rounded mb-5">
-      <h4 class="section-title mb-4">Leave A Review</h4>
+    <div class="review-form-container">
+      <h4 class="section-title">Leave A Review</h4>
       <form
         action="/listings/<%=data._id%>/reviews"
         method="post"
-        class="needs-validation"
+        class="review-form"
         novalidate
       >
-        <div class="mb-4">
-          <label for="rating" class="form-label fw-bold">Rating</label>
+        <div class="form-group">
+          <label for="rating" class="form-label">Rating</label>
           <fieldset class="starability-basic">
             <input
               type="radio"
@@ -113,14 +135,14 @@
             <label for="first-rate5" title="Amazing">5 stars</label>
           </fieldset>
         </div>
-        <div class="mb-4">
-          <label for="comment" class="form-label fw-bold">Comment</label>
+        <div class="form-group">
+          <label for="comment" class="form-label">Comment</label>
           <textarea
             required
             name="review[comment]"
             id="comment"
             cols="30"
-            class="form-control"
+            class="form-textarea"
             rows="5"
             placeholder="Share your experience..."
           ></textarea>
@@ -149,10 +171,10 @@
     </div>
     <% } %> <%if(data.reviews && data.reviews.length > 0) { %>
     <div class="reviews-section">
-      <h4 class="reviews-title mb-4">Reviews</h4>
-      <div class="row g-4">
+      <h4 class="reviews-title">Reviews</h4>
+      <div class="reviews-grid">
         <%for(review of data.reviews){ %>
-        <div class="col-md-6">
+        <div class="review-item">
           <div class="review-card">
             <div class="review-header">
               <div class="reviewer-info">
@@ -191,23 +213,262 @@
 </body>
 
 <style>
+  /* Main Layout */
+  .main-row {
+    margin-top: 1.5rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .listing-title-container {
+    width: 80%;
+    margin: 0 auto;
+  }
+
+  .listing-title {
+    font-size: 1.7rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: #333;
+    position: relative;
+    display: inline-block;
+    padding-bottom: 8px;
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .listing-card {
+    width: 80%;
+    margin: 0 auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    border: none;
+    overflow: hidden;
+    background-color: white;
+  }
+
+  .listing-image {
+    width: 100%;
+    object-fit: cover;
+    max-height: 500px;
+  }
+
+  .listing-body {
+    padding: 1.8rem;
+  }
+
+  .detail-heading {
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin: 0 0 0.8rem 0;
+    color: #333;
+  }
+
+  .description-text {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #555;
+    margin-bottom: 0.8rem;
+  }
+
+  .location-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .detail-row {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .detail-row i {
+    color: #3182ce;
+    font-size: 0.9rem;
+    width: 1rem;
+    text-align: center;
+  }
+
+  .detail-row span {
+    font-size: 0.95rem;
+    color: #555;
+  }
+
+  .spacer {
+    height: 2rem;
+  }
+
+  .content-container {
+    width: 80%;
+    margin: 0 auto;
+  }
+
+  /* Action Buttons */
+  .action-buttons {
+    display: flex;
+    width: 80%;
+    margin: 1rem auto;
+    justify-content: flex-end;
+  }
+
+  .button-group {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .delete-form {
+    margin: 0;
+  }
+
+  .edit-button {
+    display: inline-block;
+    padding: 0.375rem 1rem;
+    text-decoration: none;
+    border-radius: 0.25rem;
+    background-color: #ffd7001a;
+    text-align: center;
+    color: #baa73b;
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    transition: background-color 0.15s ease-in-out;
+  }
+
+  .edit-button:hover {
+    background-color: #ffd9003d;
+    border: 1.5px solid rgba(255, 215, 0);
+  }
+
+  .delete-button {
+    background-color: #ff00001a;
+    color: rgb(255, 2, 2);
+    border: 1px solid rgba(255, 0, 0, 0.3);
+    padding: 0.375rem 1rem;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    transition: background-color 0.15s ease-in-out;
+  }
+
+  .delete-button:hover {
+    background-color: #ff00003f;
+
+    border: 1.5px solid rgb(255, 0, 0);
+  }
+
+  /* Login Alert */
+  .login-alert {
+    text-align: center;
+    line-height: 2;
+    padding: 0.75rem 1.25rem;
+    margin-bottom: 1rem;
+    border: 1px solid #bee5eb;
+    border-radius: 1rem;
+    color: #0c5460;
+    background-color: #d1ecf1;
+    width: 100%;
+  }
+
+  .alert-link {
+    font-weight: 700;
+    color: #0c5460;
+    text-decoration: underline;
+  }
+  .alert-link:hover {
+    font-weight: 700;
+    color: black;
+    text-decoration: underline;
+  }
+
+  /* Add responsive styles for login alert */
+  @media (max-width: 768px) {
+    .login-alert {
+      padding: 0.6rem 1rem;
+      font-size: 0.95rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .login-alert {
+      padding: 0.5rem 0.75rem;
+      font-size: 0.9rem;
+      text-align: center;
+    }
+  }
+
+  /* Form Elements */
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+
+  .form-label {
+    display: inline-block;
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+  }
+
+  .form-textarea {
+    display: block;
+    width: 100%;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  }
+
+  .form-textarea:focus {
+    color: #495057;
+    background-color: #fff;
+    border-color: #80bdff;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  }
+
+  .invalid-feedback {
+    display: none;
+    width: 100%;
+    margin-top: 0.25rem;
+    font-size: 80%;
+    color: #dc3545;
+  }
+
+  /* Reviews Grid */
+  .reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
   .section-title {
     color: #2c3e50;
     font-weight: 600;
     position: relative;
     display: inline-block;
     padding-bottom: 8px;
+    margin-bottom: 1.5rem;
   }
 
-  .section-title::after {
+  .section-title::after,
+  .reviews-title::after,
+  .listing-title::after {
     content: "";
     position: absolute;
-    width: 100%;
+    width: 40%;
     height: 3px;
     bottom: 0;
     left: 0;
     background: linear-gradient(to right, #3498db, #2ecc71);
     border-radius: 2px;
+  }
+  .reviews-title::after {
+    bottom: -8px;
   }
 
   .user-details-container,
@@ -217,6 +478,8 @@
     border: 1px solid rgba(0, 0, 0, 0.05);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     margin-bottom: 2.5rem;
+    padding: 1.5rem;
+    border-radius: 0.25rem;
   }
 
   .user-details-container:hover,
@@ -278,17 +541,7 @@
     font-weight: 600;
     position: relative;
     display: inline-block;
-  }
-
-  .reviews-title::after {
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 3px;
-    bottom: -8px;
-    left: 0;
-    background: linear-gradient(to right, #3498db, #2ecc71);
-    border-radius: 2px;
+    margin-bottom: 1.5rem;
   }
 
   .review-card {
@@ -298,6 +551,9 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     border: 1px solid rgba(0, 0, 0, 0.05);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
   }
 
   .review-card:hover {
@@ -339,6 +595,7 @@
 
   .review-content {
     margin: 1rem 0;
+    flex-grow: 1;
   }
 
   .review-text {
@@ -385,8 +642,112 @@
     );
     padding: 0.2rem 0.5rem;
     border-radius: 4px;
-    font-weight: 500;
+    font-weight: 700;
     color: #2c3e50;
     border: 1px solid rgba(52, 152, 219, 0.3);
+  }
+
+  /* Listing Card Styles */
+  .image-container {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .price-overlay {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    background-color: rgba(0, 0, 0, 0.726);
+    color: white;
+    padding: 8px 14px;
+    border-radius: 30px;
+    display: flex;
+    align-items: baseline;
+    gap: 3px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(3px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    z-index: 10;
+  }
+
+  .price-value {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: white;
+  }
+
+  .price-period {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 400;
+  }
+
+  /* Media Queries for Responsive Price Overlay */
+  @media (max-width: 992px) {
+    .price-overlay {
+      padding: 7px 12px;
+      bottom: 12px;
+      right: 12px;
+    }
+
+    .price-value {
+      font-size: 1.1rem;
+    }
+
+    .price-period {
+      font-size: 0.7rem;
+    }
+
+    .listing-title {
+      font-size: 1.6rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .price-overlay {
+      padding: 6px 10px;
+      bottom: 10px;
+      right: 10px;
+    }
+
+    .price-value {
+      font-size: 1rem;
+    }
+
+    .price-period {
+      font-size: 0.65rem;
+    }
+
+    .listing-title {
+      font-size: 1.5rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .price-overlay {
+      padding: 5px 8px;
+      bottom: 8px;
+      right: 8px;
+      border-radius: 20px;
+    }
+
+    .price-value {
+      font-size: 0.9rem;
+    }
+
+    .price-period {
+      font-size: 0.6rem;
+    }
+
+    .listing-title-container,
+    .listing-card,
+    .content-container,
+    .action-buttons {
+      width: 90%;
+    }
+
+    .listing-title {
+      font-size: 1.3rem;
+    }
   }
 </style>
