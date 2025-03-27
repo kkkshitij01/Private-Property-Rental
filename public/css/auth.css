@@ -1,0 +1,159 @@
+/* Common auth container styles */
+.auth-container {
+  max-width: 450px;
+  margin: 50px auto;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(145deg, #ffffff, #f5f5f5);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Top gradient bar */
+.auth-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 6px;
+}
+
+/* Login gradient direction */
+.login-container::before,
+.signup-container::before {
+  background: linear-gradient(90deg, #4776e6, #8e54e9);
+}
+
+/* Title styles */
+.auth-title {
+  font-size: 28px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 25px;
+  text-align: center;
+}
+
+/* Input field container */
+.input-container {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+/* Input field styling */
+.input-field {
+  width: 100%;
+  padding: 15px 15px 15px 45px;
+  border: none;
+  border-radius: 8px;
+  background-color: #f7f7f7;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.input-field:focus {
+  background-color: #fff;
+  outline: none;
+}
+
+/* Different focus highlight color for login and signup */
+.login-container .input-field:focus {
+  box-shadow: 0 0 0 2px rgba(71, 118, 230, 0.3),
+    inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.signup-container .input-field:focus {
+  box-shadow: 0 0 0 2px rgba(142, 84, 233, 0.3),
+    inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Input icon styling */
+.input-icon {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #4776e6;
+  font-size: 1.5rem;
+}
+
+/* Button styles */
+.auth-btn {
+  width: 100%;
+  padding: 15px;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.auth-btn:hover {
+  transform: translateY(-2px);
+}
+
+.auth-btn:active {
+  transform: translateY(0);
+}
+
+/* Login button specific styles */
+.login-btn {
+  background: linear-gradient(90deg, #4776e6, #8e54e9);
+  box-shadow: 0 4px 10px rgba(142, 84, 233, 0.3);
+}
+
+.login-btn:hover,
+.signup-btn:hover {
+  box-shadow: 0 6px 15px rgba(142, 84, 233, 0.4);
+}
+
+/* Signup button specific styles */
+.signup-btn {
+  background: linear-gradient(90deg, #8e54e9, #4776e6);
+  box-shadow: 0 4px 10px rgba(71, 118, 230, 0.3);
+}
+
+/* Link container styling */
+.auth-link {
+  text-align: center;
+  margin-top: 20px;
+}
+
+/* Link styling */
+.auth-link a {
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.auth-link a:hover {
+  text-decoration: underline;
+}
+
+/* Specific link colors */
+.login-container .auth-link a {
+  color: #4776e6;
+}
+
+.signup-container .auth-link a {
+  color: #8e54e9;
+}
+
+/* Validation feedback */
+.valid-feedback,
+.invalid-feedback {
+  font-size: 12px;
+  padding-left: 15px;
+  margin-top: 5px;
+}
+
+.valid-feedback {
+  color: #28a745;
+}
+
+.invalid-feedback {
+  color: #dc3545;
+}

@@ -682,6 +682,49 @@
     font-weight: 400;
   }
 
+  .comment-btn {
+    scale: 0.6;
+    position: absolute;
+    font-family: inherit;
+    font-size: 18px;
+    background: linear-gradient(90deg, #8e54e9, #4776e6);
+
+    color: white;
+    padding: 15px 24px 15px 24px;
+    width: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 30px;
+    overflow: hidden;
+    transition: all 0.2s;
+    cursor: pointer;
+  }
+
+  .comment-btn span {
+    display: block;
+    margin-left: 0.3em;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .comment-btn svg {
+    display: block;
+    transform-origin: center center;
+    transition: transform 0.3s ease-in-out;
+  }
+  .comment-btn:hover svg {
+    transform: translateX(2.6em) rotate(45deg) scale(1.1);
+  }
+
+  .comment-btn:hover span {
+    transform: translateX(9em);
+  }
+
+  .comment-btn:active {
+    transform: scale(0.95);
+  }
+
   /* Media Queries for Responsive Price Overlay */
   @media (max-width: 992px) {
     .price-overlay {

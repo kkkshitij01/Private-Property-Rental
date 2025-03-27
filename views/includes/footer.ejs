@@ -1,14 +1,117 @@
-<footer>
-  <div class="f-info">
-    <div class="f-info-socials">
-      <i class="fa-brands fa-square-facebook"></i>
-      <i class="fa-brands fa-square-instagram"></i>
-      <i class="fa-brands fa-linkedin"></i>
+<style>
+  .footer {
+    padding: 2.5rem 0 1rem;
+    background-color: #fafafa;
+    border-top: 1px solid #eee;
+    margin-top: 3rem;
+  }
+
+  .footer-content {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1.5rem;
+  }
+
+  .footer-brand-container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .footer-brand {
+    font-weight: 600;
+    font-size: 1.2rem;
+    color: black;
+  }
+
+  .footer-tagline {
+    font-size: 0.8rem;
+    color: #4776e6;
+    margin-top: 0.3rem;
+    font-weight: 700;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 1.5rem;
+  }
+
+  .footer-links a {
+    color: #777;
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: color 0.2s ease;
+  }
+
+  .footer-links a:hover {
+    color: #4776e6;
+  }
+
+  .footer-socials {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .social-icon {
+    color: #777;
+    font-size: 1rem;
+    transition: color 0.2s ease;
+  }
+
+  .social-icon:hover {
+    color: #4776e6;
+  }
+
+  .footer-bottom {
+    text-align: center;
+    padding-top: 1.5rem;
+    color: #999;
+    font-size: 0.8rem;
+    margin-top: 1.5rem;
+    border-top: 1px solid #eee;
+  }
+
+  @media (max-width: 768px) {
+    .footer-content {
+      flex-direction: column;
+      gap: 1.5rem;
+      text-align: center;
+    }
+
+    .footer-links {
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+  }
+</style>
+
+<footer class="footer">
+  <div class="footer-content">
+    <div class="footer-brand-container">
+      <div class="footer-brand">RentEasy</div>
+      <div class="footer-tagline">Your home away from home</div>
     </div>
-    <div class="f-info-brand">&copy; Private Property Rental</div>
-    <div class="f-info-links">
+
+    <div class="footer-links">
+      <a href="/">Home</a>
+      <a href="/properties">Properties</a>
+      <a href="/about">About</a>
+      <a href="/contact">Contact</a>
       <a href="/privacy">Privacy</a>
-      <a href="/terms">Terms</a>
     </div>
+
+    <div class="footer-socials">
+      <a href="#" class="social-icon"
+        ><i class="fa-brands fa-facebook-f"></i
+      ></a>
+      <a href="#" class="social-icon"><i class="fa-brands fa-instagram"></i></a>
+      <a href="#" class="social-icon"><i class="fa-brands fa-twitter"></i></a>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>&copy; 2023 RentEasy. All rights reserved.</p>
   </div>
 </footer>

@@ -1,47 +1,49 @@
 <% layout("/layouts/boilerplate")%>
+<link rel="stylesheet" href="/css/auth.css" />
 
-<div class="row mt-3">
-  <p class="col-6 offset-4 mb-4 title">Sign-up</p>
-  <div class="col-6 offset-4 mt-2">
-    <form action="/signup" method="POST" class="needs-validation" novalidate>
-      <div class="mb-3 input-field">
-        <i class="fa-solid fa-user"></i>
-        <input
-          type="text"
-          name="username"
-          id="username"
-          placeholder="Username"
-          required
-        />
-        <div class="valid-feedback">Looks Good!</div>
-        <div class="invalid-feedback">Please enter a username</div>
-      </div>
-      <div class="mb-3 input-field">
-        <i
-          class="fa-solid fa-envelope fa-rotate-by"
-          style="--fa-rotate-angle: -10deg"
-        ></i>
-        <input
-          type="email"
-          name="email"
-          id="email"
-          placeholder="Email"
-          required
-        />
-        <div class="invalid-feedback">Please enter a email</div>
-      </div>
-      <div class="mb-3 input-field">
-        <i class="fa-solid fa-lock"></i>
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          id="password"
-          required
-        />
-        <div class="invalid-feedback">Please enter a password</div>
-      </div>
-      <button class="form-btn">SignUp</button>
-    </form>
-  </div>
+<div class="auth-container signup-container">
+  <h1 class="auth-title">Create Account</h1>
+  <form action="/signup" method="POST" class="needs-validation" novalidate>
+    <div class="input-container">
+      <i class="fa-solid fa-user input-icon"></i>
+      <input
+        type="text"
+        name="username"
+        id="username"
+        class="input-field"
+        placeholder="Username"
+        required
+      />
+      <div class="valid-feedback">Looks Good!</div>
+      <div class="invalid-feedback">Please enter a username</div>
+    </div>
+    <div class="input-container">
+      <i class="fa-solid fa-envelope input-icon"></i>
+      <input
+        type="email"
+        name="email"
+        id="email"
+        class="input-field"
+        placeholder="Email"
+        required
+      />
+      <div class="invalid-feedback">Please enter a valid email</div>
+    </div>
+    <div class="input-container">
+      <i class="fa-solid fa-lock input-icon"></i>
+      <input
+        type="password"
+        name="password"
+        id="password"
+        class="input-field"
+        placeholder="Password"
+        required
+      />
+      <div class="invalid-feedback">Please enter a password</div>
+    </div>
+    <button type="submit" class="auth-btn signup-btn">Create Account</button>
+    <div class="auth-link">
+      <p>Already have an account? <a href="/login">Sign in</a></p>
+    </div>
+  </form>
 </div>

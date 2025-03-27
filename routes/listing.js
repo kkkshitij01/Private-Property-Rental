@@ -31,6 +31,7 @@ router.post(
     res.redirect("/listings");
   })
 );
+
 router.get("/mylistings", isLoggedIn, async (req, res) => {
   let id = req.user._id;
   console.log(id);
