@@ -62,10 +62,6 @@ router.get(
     }
 
     const listingData = await Listing.find(query);
-    if (listingData.length === 0) {
-      req.flash("error", "No listings found");
-      res.redirect("/listings");
-    }
     res.render("listing/index", { listingData, query: req.query });
   })
 );
