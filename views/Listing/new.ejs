@@ -1,113 +1,138 @@
 <% layout("/layouts/boilerplate")%>
-<body>
-  <div class="row mt-3">
-    <div class="col-8 offset-2">
-      <p style="font-size: xx-large; font-weight: 500">Create new Listing</p>
-      <br />
-      <form
-        action="/listings"
-        method="post"
-        novalidate
-        class="needs-validation"
-        enctype="multipart/form-data"
-      >
-        <!-- enctype is used to enable form to send files to server -->
-        <div class="mb-3">
-          <label for="title" class="form-label">Title</label>
-          <input
-            type="text"
-            placeholder="Enter Title"
-            name="listing[title]"
-            class="form-control"
-            required
-          />
-          <div class="valid-feedback">Title Looks Good!</div>
-          <div class="invalid-feedback">Please Enter A Title</div>
-        </div>
-        <div class="mb-3">
-          <label for="description" class="form-label">Description</label>
-          <textarea
-            name="listing[description]"
-            class="form-control"
-            required
-          ></textarea>
+<link rel="stylesheet" href="/css/form.css" />
 
-          <div class="invalid-feedback">
-            Description Cannot Be Empty. Please Add Details.
-          </div>
-        </div>
-        <div class="mb-3">
-          <label for="category" class="form-label">Category</label>
-          <select required name="listing[category]" class="form-control">
-            <option value="">Select a category</option>
-            <option value="unfurnished">Unfurnished</option>
-            <option value="furnished">Furnished</option>
-            <option value="villa">Villa</option>
-            <option value="luxury">Luxury</option>
-            <option value="pool">Pool</option>
-            <option value="farm">Farm</option>
-            <option value="shop">Shop</option>
-            <option value="pg">PG</option>
-            <option value="flat">Flat</option>
-          </select>
-          <div class="invalid-feedback">Please select a category</div>
-        </div>
+<div class="form-container">
+  <h2 class="form-title">Create New Listing</h2>
 
-        <div class="mb-3">
-          <label for="image" class="form-label">Upload image </label>
-          <input class="form-control" type="file" name="listing[image]" />
-        </div>
-        <div class="mb-3">
-          <label for="price" class="form-label">Price</label>
-          <input
-            required
-            type="text"
-            name="listing[price]"
-            placeholder="&#8377;8,000"
-            class="form-control"
-          />
-          <div class="invalid-feedback">Please Enter A Valid Price</div>
-        </div>
-        <div class="mb-3">
-          <label for="street" class="form-label">Street</label>
-          <input
-            type="text"
-            name="listing[street]"
-            class="form-control"
-            placeholder="Enter street (e.g., Sadar Bazar)"
-          />
-          <div class="invalid-feedback">Street Is Required</div>
-        </div>
-        <div class="mb-3">
-          <label for="city" class="form-label">City</label>
-          <input
-            required
-            type="text"
-            name="listing[city]"
-            class="form-control"
-            placeholder="Enter city (e.g., Mumbai)"
-          />
-          <div class="invalid-feedback">
-            City Is Required. Please Specify A Valid City
-          </div>
-        </div>
-        <div class="mb-3">
-          <label for="country" class="form-label">Country</label>
-          <input
-            required
-            type="text"
-            name="listing[country]"
-            placeholder="India"
-            class="form-control"
-          />
-          <div class="invalid-feedback">
-            Country Is Required. Please Specify A Valid Country
-          </div>
-        </div>
-
-        <button class="btn btn-dark add-btn mt-3">Add</button>
-        <br /><br />
-      </form>
+  <form
+    action="/listings"
+    method="post"
+    novalidate
+    class="needs-validation"
+    enctype="multipart/form-data"
+  >
+    <div class="form-group">
+      <label for="title" class="form-label">Title</label>
+      <input
+        type="text"
+        placeholder="Enter Title"
+        name="listing[title]"
+        class="form-control"
+        required
+      />
+      <div class="valid-feedback">Title Looks Good!</div>
+      <div class="invalid-feedback">Please Enter A Title</div>
     </div>
-  </div>
-</body>
+
+    <div class="form-group">
+      <label for="description" class="form-label">Description</label>
+      <textarea
+        name="listing[description]"
+        class="form-control form-textarea"
+        required
+      ></textarea>
+      <div class="invalid-feedback">
+        Description Cannot Be Empty. Please Add Details.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="category" class="form-label">Category</label>
+      <select required name="listing[category]" class="form-select">
+        <option value="">Select a category</option>
+        <option value="unfurnished">Unfurnished</option>
+        <option value="furnished">Furnished</option>
+        <option value="villa">Villa</option>
+        <option value="luxury">Luxury</option>
+        <option value="pool">Pool</option>
+        <option value="farm">Farm</option>
+        <option value="shop">Shop</option>
+        <option value="pg">PG</option>
+        <option value="flat">Flat</option>
+      </select>
+      <div class="invalid-feedback">Please select a category</div>
+    </div>
+
+    <div class="form-group">
+      <label for="image" class="form-label">Upload Image</label>
+      <input class="form-control" type="file" name="listing[image]" />
+    </div>
+
+    <div class="form-group">
+      <label for="price" class="form-label">Price</label>
+      <input
+        required
+        type="text"
+        name="listing[price]"
+        placeholder="₹8,000"
+        class="form-control"
+      />
+      <div class="invalid-feedback">Please Enter A Valid Price</div>
+    </div>
+
+    <div class="form-group">
+      <label for="street" class="form-label">Street</label>
+      <input
+        type="text"
+        name="listing[street]"
+        class="form-control"
+        placeholder="Enter street (e.g., Sadar Bazar)"
+      />
+      <div class="invalid-feedback">Street Is Required</div>
+    </div>
+
+    <div class="form-group">
+      <label for="city" class="form-label">City</label>
+      <input
+        required
+        type="text"
+        name="listing[city]"
+        class="form-control"
+        placeholder="Enter city (e.g., Mumbai)"
+      />
+      <div class="invalid-feedback">
+        City Is Required. Please Specify A Valid City
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="country" class="form-label">Country</label>
+      <input
+        required
+        type="text"
+        name="listing[country]"
+        placeholder="India"
+        class="form-control"
+      />
+      <div class="invalid-feedback">
+        Country Is Required. Please Specify A Valid Country
+      </div>
+    </div>
+
+    <button class="form-btn">Add Listing</button>
+  </form>
+</div>
+
+<script class="validation-script">
+  // JavaScript for form validation
+  (function () {
+    "use strict";
+
+    const forms = document.querySelectorAll(".needs-validation");
+
+    Array.from(forms).forEach(function (form) {
+      form.addEventListener(
+        "submit",
+        function (event) {
+          if (!form.checkValidity()) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+
+          form.classList.add("was-validated");
+        },
+        false
+      );
+    });
+  })();
+</script>

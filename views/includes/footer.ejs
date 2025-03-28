@@ -1,18 +1,32 @@
 <style>
   .footer {
+    position: relative;
     padding: 2.5rem 0 1rem;
     background-color: #fafafa;
     border-top: 1px solid #eee;
     width: 100%;
-    position: fixed;
-    bottom: 0;
-    left: 0;
     z-index: 100;
   }
 
-  /* Add padding to the body to prevent content from being hidden behind the footer */
+  /* Set up the body to use flexbox for sticky footer */
+  html,
   body {
-    padding-bottom: 130px; /* Adjust this value based on your footer height */
+    height: 100%;
+  }
+
+  body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Ensure main content takes available space */
+  .main-content {
+    flex: 1 0 auto;
+  }
+
+  .container {
+    width: 100%;
   }
 
   .footer-content {
@@ -93,10 +107,6 @@
       flex-wrap: wrap;
       justify-content: center;
     }
-
-    body {
-      padding-bottom: 200px; /* Increase padding for mobile view */
-    }
   }
 </style>
 
@@ -128,11 +138,3 @@
     <p>&copy; 2023 RentEasy. All rights reserved.</p>
   </div>
 </footer>
-
-<script>
-  // Add padding to the body element to prevent content from being hidden behind the footer
-  document.addEventListener("DOMContentLoaded", function () {
-    const footerHeight = document.querySelector(".footer").offsetHeight;
-    document.body.style.paddingBottom = footerHeight + "px";
-  });
-</script>
