@@ -11,6 +11,7 @@ const ExpressError = require("./utils/ExpressError.js");
 const methodOverride = require("method-override");
 const port = 8000;
 const session = require("express-session");
+const MongoStore = require("connect-mongo");
 const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
@@ -20,9 +21,37 @@ const userRouter = require("./routes/user.js");
 const reviewRouter = require("./routes/review.js");
 const listingRouter = require("./routes/listing.js");
 const user = require("./models/user.js");
+const { error } = require("console");
+
+//Connecting to data base
+// const MONGO_URL = "mongodb://127.0.0.1:27017/property-rental";
+const dbUrl = process.env.ATLASDB_URL;
+async function main() {
+  await mongoose.connect(dbUrl);
+}
+main()
+  .then(() => {
+    console.log(`Server running on http://localhost:${port}`);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+
+const store = MongoStore.create({
+  mongoUrl: dbUrl,
+  crypto: {
+    secret: process.env.SECRET,
+  },
+  touchAfter: 12 * 3600,
+});
+
+store.on("error", () => {
+  console.log("error in MONGO SESSION STORE ", err);
+});
 
 const sessionOption = {
-  secret: "mysupersecrectcode",
+  store,
+  secret: process.env.SECRET,
   resave: false,
   saveUninitialized: true,
   cookie: {
@@ -38,21 +67,6 @@ app.set("views", path.join(__dirname, "views"));
 app.use(express.static(path.join(__dirname, "/public")));
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
-
-//Importing mongoDB models
-
-//Connecting to data base
-const MONGO_URL = "mongodb://127.0.0.1:27017/property-rental";
-async function main() {
-  await mongoose.connect(MONGO_URL);
-}
-main()
-  .then(() => {
-    console.log(`Server running on http://localhost:${port}`);
-  })
-  .catch((err) => {
-    console.log(err);
-  });
 
 app.use(session(sessionOption));
 app.use(flash());
