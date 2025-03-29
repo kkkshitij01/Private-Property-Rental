@@ -1,0 +1,222 @@
+<% layout("/layouts/boilerplate")%>
+
+<link rel="stylesheet" href="/css/show.css" />
+<body>
+  <div class="main-row">
+    <div class="listing-title-container">
+      <p class="listing-title"><%=data.title%></p>
+    </div>
+    <div class="listing-card">
+      <div class="image-container">
+        <img
+          src="<%=data.image.url%>"
+          class="listing-image"
+          alt="listing_image"
+        />
+        <div class="price-overlay">
+          <span class="price-value"
+            >&#8377;<%=data.price.toLocaleString("en-IN")%></span
+          >
+          <span class="price-period">/month</span>
+        </div>
+        <div class="category-overlay">
+          <span class="category-badge">
+            <i class="fa-solid fa-tag"></i>
+            <%=data.category ? data.category.charAt(0).toUpperCase() +
+            data.category.slice(1) : "Not specified"%>
+          </span>
+        </div>
+      </div>
+      <div class="listing-body">
+        <div class="listing-details">
+          <div class="description-section">
+            <h3 class="detail-heading">About this property</h3>
+            <p class="description-text"><%=data.description%></p>
+          </div>
+
+          <div class="detail-section">
+            <div class="location-info">
+              <div class="detail-row">
+                <i class="fa-solid fa-map-marker-alt"></i>
+                <span><%=data.street || "demo street"%></span>
+              </div>
+              <div class="detail-row">
+                <i class="fa-solid fa-road"></i>
+                <span><%=data.city || "demo city"%>, <%=data.country%></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <% if (currUser && currUser._id.toString() === data.owner._id.toString()) { %>
+  <div class="action-buttons">
+    <div class="button-group">
+      <a href="/listings/<%=data._id%>/edit" class="edit-button">Edit</a>
+      <form
+        action="/listings/<%=data._id%>?_method=DELETE"
+        method="post"
+        class="delete-form"
+      >
+        <button class="delete-button">Delete</button>
+      </form>
+    </div>
+  </div>
+  <%}%>
+  <div class="spacer"></div>
+  <div class="content-container">
+    <% if (!currUser) { %>
+    <div class="login-alert">
+      Please <a href="/login" class="alert-link">login</a> to view
+      <span class="highlight-text">owner details</span> and
+      <span class="highlight-text">leave reviews</span>
+    </div>
+    <% } %> <% if (currUser) { %>
+    <div class="user-details-container">
+      <h4 class="section-title">Owner Details</h4>
+      <div class="user-info">
+        <div class="user-header">
+          <i class="fa-solid fa-user-circle"></i>
+          <span class="user-name"><%=data.owner.username%></span>
+        </div>
+        <div class="user-email">
+          <i class="fa-solid fa-envelope"></i>
+          <span><%=data.owner.email%></span>
+        </div>
+      </div>
+    </div>
+    <% } %> <% if (currUser) { %>
+    <div class="review-form-container">
+      <h4 class="section-title">Leave A Review</h4>
+      <form
+        action="/listings/<%=data._id%>/reviews"
+        method="post"
+        class="review-form"
+        novalidate
+      >
+        <div class="form-group">
+          <label for="rating" class="form-label">Rating</label>
+          <fieldset class="starability-basic">
+            <input
+              type="radio"
+              id="no-rate"
+              class="input-no-rate"
+              name="review[rating]"
+              value="1"
+              checked
+              aria-label="No rating."
+            />
+            <input
+              type="radio"
+              id="first-rate1"
+              name="review[rating]"
+              value="1"
+            />
+            <label for="first-rate1" title="Terrible">1 star</label>
+            <input
+              type="radio"
+              id="first-rate2"
+              name="review[rating]"
+              value="2"
+            />
+            <label for="first-rate2" title="Not good">2 stars</label>
+            <input
+              type="radio"
+              id="first-rate3"
+              name="review[rating]"
+              value="3"
+            />
+            <label for="first-rate3" title="Average">3 stars</label>
+            <input
+              type="radio"
+              id="first-rate4"
+              name="review[rating]"
+              value="4"
+            />
+            <label for="first-rate4" title="Very good">4 stars</label>
+            <input
+              type="radio"
+              id="first-rate5"
+              name="review[rating]"
+              value="5"
+            />
+            <label for="first-rate5" title="Amazing">5 stars</label>
+          </fieldset>
+        </div>
+        <div class="form-group">
+          <label for="comment" class="form-label">Comment</label>
+          <textarea
+            required
+            name="review[comment]"
+            id="comment"
+            cols="30"
+            class="form-textarea"
+            rows="5"
+            placeholder="Share your experience..."
+          ></textarea>
+          <div class="invalid-feedback">Please add some comment</div>
+        </div>
+        <button class="comment-btn">
+          <div class="svg-wrapper-1">
+            <div class="svg-wrapper">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                width="24"
+                height="24"
+              >
+                <path fill="none" d="M0 0h24v24H0z"></path>
+                <path
+                  fill="currentColor"
+                  d="M1.946 9.315c-.522-.174-.527-.455.01-.634l19.087-6.362c.529-.176.832.12.684.638l-5.454 19.086c-.15.529-.455.547-.679.045L12 14l6-8-8 6-8.054-2.685z"
+                ></path>
+              </svg>
+            </div>
+          </div>
+          <span>COMMENT</span>
+        </button>
+      </form>
+    </div>
+    <% } %> <%if(data.reviews && data.reviews.length > 0) { %>
+    <div class="reviews-section">
+      <h4 class="reviews-title">Reviews</h4>
+      <div class="reviews-grid">
+        <%for(review of data.reviews){ %>
+        <div class="review-item">
+          <div class="review-card">
+            <div class="review-header">
+              <div class="reviewer-info">
+                <i class="fa-solid fa-user-circle"></i>
+                <span class="reviewer-name">@<%=review.author.username%></span>
+              </div>
+              <div class="rating">
+                <% for(let i = 0; i < review.rating; i++) { %>
+                <i class="fa-solid fa-star" style="color: #ffd700"></i>
+                <% } %>
+              </div>
+            </div>
+            <div class="review-content">
+              <p class="review-text"><%=review.comment%></p>
+            </div>
+
+            <form
+              action="/listings/<%=data._id%>/reviews/<%=review._id%>?_method=DELETE"
+              class="review-actions"
+              method="post"
+            >
+              <% if (currUser && currUser._id.toString() ===
+              review.author._id.toString()) { %>
+              <button class="delete-review-btn">
+                <i class="fa-solid fa-trash"></i> Delete
+              </button>
+              <%}%>
+            </form>
+          </div>
+        </div>
+        <%}%>
+      </div>
+    </div>
+    <%}%>
+  </div>
+</body>

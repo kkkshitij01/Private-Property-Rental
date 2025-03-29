@@ -1,0 +1,146 @@
+<% layout("/layouts/boilerplate")%>
+<style>
+  .mylisting-title {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #333;
+    text-align: center;
+    margin: 1.5rem 0;
+    padding: 0.8rem;
+    position: relative;
+    letter-spacing: 1px;
+    background: #f8f9fa;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+  }
+
+  .mylisting-title:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .mylisting-title::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 2px;
+    background: #007bff;
+    border-radius: 1px;
+  }
+
+  .no-listings {
+    text-align: center;
+    padding: 3rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+    color: #6c757d;
+    max-width: 500px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  }
+
+  .no-listings i {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    color: #adb5bd;
+  }
+
+  .no-listings h3 {
+    margin-bottom: 1rem;
+    color: #495057;
+  }
+
+  .no-listings p {
+    margin-bottom: 0;
+    font-size: 1.1rem;
+  }
+
+  .empty-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 400px;
+    width: 100%;
+  }
+
+  .listings-section {
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+  }
+</style>
+<body>
+  <div class="listings-section">
+    <h1 class="mylisting-title">Listings</h1>
+    <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mt-3">
+      <% let hasListings = false %> <%for(let listing of listingData){%>
+      <%if(listing.isAvailable === true){%> <% hasListings = true %>
+      <a href="/listings/<%=listing._id%>" class="listing-link">
+        <div class="card listing-card col">
+          <img
+            src="<%=listing.image.url%>"
+            class="card-img-top"
+            alt="listing_image"
+          />
+          <div class="card-body">
+            <p class="card-text">
+              <b><%=listing.title%></b>
+              <span class="price-tag"
+                >&#8377;<%=listing.price.toLocaleString("en-IN")%>/Month</span
+              >
+            </p>
+          </div>
+        </div>
+      </a>
+      <%}%> <%}%> <% if (!hasListings) { %>
+      <div class="empty-container">
+        <div class="no-listings">
+          <i class="fas fa-home"></i>
+          <h3>No Active Listings</h3>
+          <p>
+            You haven't posted any listings yet. Start by creating a new
+            listing!
+          </p>
+        </div>
+      </div>
+      <% } %>
+    </div>
+  </div>
+
+  <div class="listings-section">
+    <h1 class="mylisting-title">Unlisted</h1>
+    <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mt-3">
+      <% let hasUnlisted = false %> <% for(let listing of listingData){%>
+      <%if(!listing.isAvailable === true){%> <% hasUnlisted = true %>
+      <a href="/listings/<%=listing._id%>" class="listing-link">
+        <div class="card listing-card col">
+          <img
+            src="<%=listing.image.url%>"
+            class="card-img-top"
+            alt="listing_image"
+          />
+          <div class="card-body">
+            <p class="card-text">
+              <b><%=listing.title%></b>
+              <span class="price-tag"
+                >&#8377;<%=listing.price.toLocaleString("en-IN")%>/Month</span
+              >
+            </p>
+          </div>
+        </div>
+      </a>
+      <% }%> <%}%> <% if (!hasUnlisted) { %>
+      <div class="empty-container">
+        <div class="no-listings">
+          <i class="fas fa-archive"></i>
+          <h3>No Unlisted Properties</h3>
+          <p>All your properties are currently active and listed.</p>
+        </div>
+      </div>
+      <% } %>
+    </div>
+  </div>
+</body>

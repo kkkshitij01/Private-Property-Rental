@@ -1,0 +1,22 @@
+<% layout("/layouts/boilerplate")%>
+<!-- extra -->
+<style>
+  .err-img {
+    width: 150px;
+    margin-left: 43%;
+  }
+  /* For tablets */
+  @media (max-width: 800px) {
+    .err-img {
+      width: 150px;
+      margin-left: 37%;
+    }
+  }
+</style>
+<img src="/errorImg.gif" alt="Loading animation" class="err-img" />
+<!-- extra ends here -->
+<div class="row">
+  <div class="alert alert-danger col-6 offset-3" role="alert">
+    <p class="alert-heading"><%= err.message%></p>
+  </div>
+</div>

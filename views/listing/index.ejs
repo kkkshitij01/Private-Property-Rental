@@ -1,0 +1,88 @@
+<% layout("/layouts/boilerplate")%>
+<body>
+  <div id="filters">
+    <a href="/listings">
+      <div class="filter <%= !query.category ? 'active' : '' %>">
+        <div><i class="fa-solid fa-house"></i></div>
+        <p>Home</p>
+      </div>
+    </a>
+    <a href="/listings?category=unfurnished">
+      <div
+        class="filter <%= query.category === 'unfurnished' ? 'active' : '' %>"
+      >
+        <div><i class="fa-solid fa-person-walking-luggage"></i></div>
+        <p>Unfurnished</p>
+      </div>
+    </a>
+    <a href="/listings?category=furnished">
+      <div class="filter <%= query.category === 'furnished' ? 'active' : '' %>">
+        <div><i class="fa-solid fa-couch"></i></div>
+        <p>Furnished</p>
+      </div>
+    </a>
+    <a href="/listings?category=villa">
+      <div class="filter <%= query.category === 'villa' ? 'active' : '' %>">
+        <div><i class="fa-solid fa-house"></i></div>
+        <p>Villa</p>
+      </div>
+    </a>
+    <a href="/listings?category=pool">
+      <div class="filter <%= query.category === 'pool' ? 'active' : '' %>">
+        <div><i class="fa-solid fa-person-swimming"></i></div>
+        <p>Pool House</p>
+      </div>
+    </a>
+    <a href="/listings?category=farm">
+      <div class="filter <%= query.category === 'farm' ? 'active' : '' %>">
+        <div><i class="fa-solid fa-tree-city"></i></div>
+        <p>Farm House</p>
+      </div>
+    </a>
+    <a href="/listings?category=shop">
+      <div class="filter <%= query.category === 'shop' ? 'active' : '' %>">
+        <div><i class="fa-solid fa-store"></i></div>
+        <p>Shop</p>
+      </div>
+    </a>
+    <a href="/listings?category=pg">
+      <div class="filter <%= query.category === 'pg' ? 'active' : '' %>">
+        <div><i class="fa-solid fa-users-line"></i></div>
+        <p>PG</p>
+      </div>
+    </a>
+    <a href="/listings?category=luxury">
+      <div class="filter <%= query.category === 'luxury' ? 'active' : '' %>">
+        <div><i class="fa-solid fa-synagogue"></i></div>
+        <p>Luxury</p>
+      </div>
+    </a>
+    <a href="/listings?category=flat">
+      <div class="filter <%= query.category === 'flat' ? 'active' : '' %>">
+        <div><i class="fa-solid fa-building"></i></div>
+        <p>Flat</p>
+      </div>
+    </a>
+  </div>
+  <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mt-3">
+    <%for(let listing of listingData){%> <%if(listing.isAvailable === true){%>
+    <a href="/listings/<%=listing._id%>" class="listing-link">
+      <div class="card listing-card col">
+        <img
+          src="<%=listing.image.url%>"
+          class="card-img-top"
+          alt="listing_image"
+        />
+        <div class="card-body">
+          <p class="card-text">
+            <b><%=listing.title%></b>
+            <span class="price-tag"
+              >&#8377;<%=listing.price.toLocaleString("en-IN")%>/Month</span
+            >
+          </p>
+        </div>
+      </div>
+    </a>
+    <%}%> <%}%>
+  </div>
+</body>
